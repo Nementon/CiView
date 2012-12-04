@@ -1,0 +1,227 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                    xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+                    xmlns:extbehaviour="clr-namespace:WPFExtensions.AttachedBehaviours;assembly=WPFExtensions"
+                    xmlns:Converters="clr-namespace:GraphSharp.Converters"
+                    xmlns:Controls="clr-namespace:GraphSharp.Controls">
+
+    <Converters:EdgeRouteToPathConverter x:Key="routeToPathConverter" />
+    <Converters:PointArrayToString x:Key="pointsToStringConverter" />
+    <Style TargetType="{x:Type Controls:EdgeControl}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Controls:EdgeControl}">
+                    <Path Stroke="{TemplateBinding Foreground}" StrokeThickness="2" MinWidth="1" MinHeight="1" x:Name="edgePath">
+                        <Path.Data>
+                            <PathGeometry>
+                                <PathGeometry.Figures>
+                                    <MultiBinding Converter="{StaticResource routeToPathConverter}">
+                                        <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Source.(Controls:GraphCanvas.X)" />
+                                        <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Source.(Controls:GraphCanvas.Y)" />
+                                        <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Source.ActualWidth" />
+                                        <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Source.ActualHeight" />
+                                        <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Target.(Controls:GraphCanvas.X)" />
+                                        <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Target.(Controls:GraphCanvas.Y)" />
+                                        <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Target.ActualWidth" />
+                                        <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Target.ActualHeight" />
+                                        <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="RoutePoints" />
+                                    </MultiBinding>
+                                </PathGeometry.Figures>
+                            </PathGeometry>
+                        </Path.Data>
+                    </Path>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <!--<Setter Property="Controls:GraphElementBehavior.HighlightTrigger" Value="{Binding RelativeSource={RelativeSource Self}, Path=IsMouseOver}" />-->
+        <Setter Property="MinWidth" Value="1" />
+        <Setter Property="MinHeight" Value="1" />
+        <Setter Property="Background" Value="Red" />
+        <Setter Property="Foreground" Value="Silver" />
+        <Setter Property="Opacity" Value="0.5" />
+        <!--<Style.Triggers>
+            <Trigger Property="Controls:GraphElementBehavior.IsHighlighted" Value="True">
+                <Setter Property="Foreground" Value="Black" />
+            </Trigger>
+            <Trigger Property="Controls:GraphElementBehavior.IsSemiHighlighted" Value="True">
+                <Setter Property="Foreground" Value="Yellow" />
+            </Trigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="Controls:GraphElementBehavior.IsSemiHighlighted" Value="True" />
+                    <Condition Property="Controls:GraphElementBehavior.SemiHighlightInfo" Value="InEdge" />
+                </MultiTrigger.Conditions>
+                <Setter Property="Foreground" Value="Red" />
+            </MultiTrigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="Controls:GraphElementBehavior.IsSemiHighlighted" Value="True" />
+                    <Condition Property="Controls:GraphElementBehavior.SemiHighlightInfo" Value="OutEdge" />
+                </MultiTrigger.Conditions>
+                <Setter Property="Foreground" Value="Blue" />
+            </MultiTrigger>
+        </Style.Triggers>-->
+    </Style>
+    <Style TargetType="{x:Type Controls:VertexControl}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Controls:VertexControl}">
+                    <Grid Name="rootGrid">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CustomStates">
+                                <VisualState x:Name="BeforeAdded" />
+                                <VisualState x:Name="AfterAdded" />
+                                <VisualState x:Name="BeforeRemoved" />
+                                <VisualStateGroup.Transitions>
+                                    <VisualTransition From="BeforeAdded" To="AfterAdded">
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="rootGrid" Storyboard.TargetProperty="Opacity" From="0" Duration="0:0:0.5" />
+                                        </Storyboard>
+                                    </VisualTransition>
+                                    <VisualTransition From="AfterAdded" To="BeforeRemoved">
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="rootGrid" Storyboard.TargetProperty="Opacity" To="0.5" Duration="0:0:0.5" />
+                                        </Storyboard>
+                                    </VisualTransition>
+                                </VisualStateGroup.Transitions>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
+                            <ContentPresenter Content="{TemplateBinding Vertex}" />
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <!--<Setter Property="Controls:GraphElementBehavior.HighlightTrigger" Value="{Binding RelativeSource={RelativeSource Self},Path=IsMouseOver}" />
+        <Setter Property="extbehaviour:DragBehaviour.IsDragEnabled" Value="True" />
+        <Setter Property="extbehaviour:DragBehaviour.X" Value="{Binding RelativeSource={RelativeSource Self},Path=(Controls:GraphCanvas.X),Mode=TwoWay}" />
+        <Setter Property="extbehaviour:DragBehaviour.Y" Value="{Binding RelativeSource={RelativeSource Self},Path=(Controls:GraphCanvas.Y),Mode=TwoWay}" />-->
+        <Setter Property="BorderThickness" Value="2" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <!--<Style.Triggers>
+            <Trigger Property="Controls:GraphElementBehavior.IsHighlighted" Value="True">
+                <Setter Property="BorderBrush" Value="Orange" />
+                <Setter Property="BorderThickness" Value="2" />
+            </Trigger>
+            <Trigger Property="Controls:GraphElementBehavior.IsSemiHighlighted" Value="True">
+                <Setter Property="BorderBrush" Value="Yellow" />
+                <Setter Property="BorderThickness" Value="2" />
+            </Trigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="Controls:GraphElementBehavior.IsSemiHighlighted" Value="True" />
+                    <Condition Property="Controls:GraphElementBehavior.SemiHighlightInfo" Value="Source" />
+                </MultiTrigger.Conditions>
+                <Setter Property="BorderBrush" Value="Red" />
+                <Setter Property="BorderThickness" Value="2" />
+            </MultiTrigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="Controls:GraphElementBehavior.IsSemiHighlighted" Value="True" />
+                    <Condition Property="Controls:GraphElementBehavior.SemiHighlightInfo" Value="Target" />
+                </MultiTrigger.Conditions>
+                <Setter Property="BorderBrush" Value="Blue" />
+                <Setter Property="BorderThickness" Value="2" />
+            </MultiTrigger>
+        </Style.Triggers>-->
+    </Style>
+    <Style TargetType="{x:Type Controls:CompoundVertexControl}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Controls:CompoundVertexControl}">
+                    <ControlTemplate.Resources>
+                        <Style TargetType="{x:Type Controls:VertexControl}">
+                            <Setter Property="Background" Value="White" />
+                        </Style>
+                    </ControlTemplate.Resources>
+                    <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
+                        <Expander IsExpanded="{Binding RelativeSource={RelativeSource TemplatedParent},Path=IsExpanded,Mode=TwoWay}">
+                            <Expander.Header>
+                                <ContentPresenter Content="{TemplateBinding Vertex}" />
+                            </Expander.Header>
+                            <ItemsControl x:Name="PART_InnerCanvas" ItemsSource="{TemplateBinding Vertices}">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel Orientation="Vertical" />
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                            </ItemsControl>
+                        </Expander>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <!--<Setter Property="Controls:GraphElementBehavior.HighlightTrigger" Value="{Binding RelativeSource={RelativeSource Self},Path=IsMouseOver}" />-->
+        <Setter Property="extbehaviour:DragBehaviour.IsDragEnabled" Value="True" />
+        <Setter Property="extbehaviour:DragBehaviour.X" Value="{Binding RelativeSource={RelativeSource Self},Path=(Controls:GraphCanvas.X),Mode=TwoWay}" />
+        <Setter Property="extbehaviour:DragBehaviour.Y" Value="{Binding RelativeSource={RelativeSource Self},Path=(Controls:GraphCanvas.Y),Mode=TwoWay}" />
+        <Setter Property="BorderThickness" Value="2" />
+        <Setter Property="BorderBrush" Value="Silver" />
+        <Setter Property="Background">
+            <Setter.Value>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="White" Offset="0" />
+                    <GradientStop Color="BurlyWood" Offset="1" />
+                </LinearGradientBrush>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="LayoutMode" Value="Automatic">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Controls:CompoundVertexControl}">
+                            <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
+                                <Expander IsExpanded="{Binding RelativeSource={RelativeSource TemplatedParent},Path=IsExpanded,Mode=TwoWay}">
+                                    <Expander.Header>
+                                        <ContentPresenter Content="{TemplateBinding Vertex}" />
+                                    </Expander.Header>
+                                    <ItemsControl x:Name="PART_InnerCanvas" ItemsSource="{TemplateBinding Vertices}">
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <Controls:GraphCanvas Background="White" />
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                    </ItemsControl>
+                                </Expander>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="Background">
+                    <Setter.Value>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                            <GradientStop Color="White" Offset="0" />
+                            <GradientStop Color="Silver" Offset="1" />
+                        </LinearGradientBrush>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+            <!--<Trigger Property="Controls:GraphElementBehavior.IsHighlighted" Value="True">
+                <Setter Property="BorderBrush" Value="Orange" />
+                <Setter Property="BorderThickness" Value="2" />
+            </Trigger>
+            <Trigger Property="Controls:GraphElementBehavior.IsSemiHighlighted" Value="True">
+                <Setter Property="BorderBrush" Value="Yellow" />
+                <Setter Property="BorderThickness" Value="2" />
+            </Trigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="Controls:GraphElementBehavior.IsSemiHighlighted" Value="True" />
+                    <Condition Property="Controls:GraphElementBehavior.SemiHighlightInfo" Value="Source" />
+                </MultiTrigger.Conditions>
+                <Setter Property="BorderBrush" Value="Red" />
+                <Setter Property="BorderThickness" Value="2" />
+            </MultiTrigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="Controls:GraphElementBehavior.IsSemiHighlighted" Value="True" />
+                    <Condition Property="Controls:GraphElementBehavior.SemiHighlightInfo" Value="Target" />
+                </MultiTrigger.Conditions>
+                <Setter Property="BorderBrush" Value="Blue" />
+                <Setter Property="BorderThickness" Value="2" />
+            </MultiTrigger>-->
+        </Style.Triggers>
+    </Style>
+</ResourceDictionary>

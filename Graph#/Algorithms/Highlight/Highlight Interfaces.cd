@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="GraphSharp.Algorithms.Highlight.HighlightAlgorithmBase&lt;TVertex, TEdge, TGraph, TParameters&gt;" Collapsed="true">
+    <Position X="0.5" Y="4" Width="4.25" />
+    <TypeIdentifier>
+      <HashCode>AIAEAAAAAQEAAAAAIAggCAAAgAAAAAAgAIAAAAAAAAA=</HashCode>
+      <FileName>Algorithms\Highlight\HighlightAlgorithmBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="GraphSharp.Algorithms.Highlight.SimpleHighlightAlgorithm&lt;TVertex, TEdge, TGraph&gt;" Collapsed="true">
+    <Position X="0.5" Y="4.75" Width="4.25" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAACAAAAAAAggCAAAAAAIAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>Algorithms\Highlight\SimpleHighlightAlgorithm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GraphSharp.Algorithms.Highlight.HighlightContext&lt;TVertex, TEdge, TGraph&gt;">
+    <Position X="5.25" Y="2.25" Width="4" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAA=</HashCode>
+      <FileName>Algorithms\Highlight\HighlightContext.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="GraphSharp.Algorithms.Highlight.StandardHighlightAlgorithmFactory&lt;TVertex, TEdge, TGraph&gt;">
+    <Position X="5.25" Y="6.75" Width="4" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAAAAAAAAAAAAAAQAAAAiAAAAAAACBAA=</HashCode>
+      <FileName>Algorithms\Highlight\StandardHighlightAlgorithmFactory.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="GraphSharp.Algorithms.Highlight.IHighlightAlgorithm&lt;TVertex, TEdge, TGraph&gt;">
+    <Position X="0.5" Y="1" Width="4.25" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAEAAAAAIAggCAAAAAAAAAAgAIAAAAAAAAA=</HashCode>
+      <FileName>Algorithms\Highlight\IHighlightAlgorithm.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="GraphSharp.Algorithms.Highlight.IHighlightParameters">
+    <Position X="9.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Algorithms\Highlight\IHighlightParameters.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="GraphSharp.Algorithms.Highlight.IHighlightAlgorithmFactory&lt;TVertex, TEdge, TGraph&gt;">
+    <Position X="5.25" Y="4.5" Width="4" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAAAAAAAAAAAAAAQAAAAiAAAAAAACAAA=</HashCode>
+      <FileName>Algorithms\Highlight\IHighlightAlgorithmFactory.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="GraphSharp.Algorithms.Highlight.IHighlightContext&lt;TVertex, TEdge, TGraph&gt;">
+    <Position X="5.25" Y="1" Width="4" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAA=</HashCode>
+      <FileName>Algorithms\Highlight\IHighlightContext.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="GraphSharp.Algorithms.Highlight.IHighlightController&lt;TVertex, TEdge, TGraph&gt;">
+    <Position X="0.5" Y="6" Width="4.25" />
+    <TypeIdentifier>
+      <HashCode>AAMgCAAACEEAAQAgAAAAAAQAAAAAAAgAAQAEAIAAIAA=</HashCode>
+      <FileName>Algorithms\Highlight\IHighlightController.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

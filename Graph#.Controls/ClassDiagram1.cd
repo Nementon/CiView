@@ -1,0 +1,267 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="GraphSharp.Controls.AnimationContext" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="8" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controls\Animations\AnimationContext.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="GraphSharp.Controls.CompoundVertexControl" Collapsed="true">
+    <Position X="5.25" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAgUCABABEAAAAIwACAIAABAAAAAAAECDAEAAAAAA=</HashCode>
+      <FileName>Controls\CompoundVertexControl.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="GraphSharp.Controls.ContextualGraphLayout&lt;TVertex, TEdge, TGraph&gt;" Collapsed="true">
+    <Position X="6.75" Y="11" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAEAAAEAAAAAAAAAACAAAAEAAAAAgAA=</HashCode>
+      <FileName>Controls\ContextualGraphLayout.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GraphSharp.Controls.EdgeControl" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="5.25" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAiAABAAAAAAAAiAAAIAAJAAAAAAEAAAACAA=</HashCode>
+      <FileName>Controls\EdgeControl.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="GraphSharp.Controls.GraphCanvas">
+    <Position X="1.75" Y="4.5" Width="2.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AEBEIAAAAAAQQCYCABAAAAAQQAABAIAQYAAACAoAEgA=</HashCode>
+      <FileName>Controls\GraphCanvas.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GraphSharp.Controls.HighlightTriggeredEventArgs" Collapsed="true">
+    <Position X="13.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controls\GraphElementControl.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GraphSharp.Controls.HighlightInfoChangedEventArgs" Collapsed="true">
+    <Position X="11.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controls\GraphElementControl.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GraphSharp.Controls.GraphElementBehaviour" Collapsed="true">
+    <Position X="9.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>kAAgJBCAAUAAAAAAKAAlEEIRAAAAAAIIAIYwQAghFAI=</HashCode>
+      <FileName>Controls\GraphElementControl.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GraphSharp.Controls.GraphLayout" Collapsed="true">
+    <Position X="6.75" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controls\GraphLayout.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GraphSharp.Controls.GraphLayout&lt;TVertex, TEdge, TGraph&gt;">
+    <Position X="0.75" Y="9.75" Width="4.75" />
+    <NestedTypes>
+      <Class Name="GraphSharp.Controls.GraphLayout&lt;TVertex, TEdge, TGraph&gt;.AsyncThreadArgument" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Controls\GraphLayout.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AZfoeAhMXGVUBTJoOwOAypXZ3NBXOS0Pta2OcpI37fc=</HashCode>
+      <FileName>Controls\GraphLayout.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="GraphSharp.Controls.PositionChangedEventArgs" Collapsed="true">
+    <Position X="11.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIA=</HashCode>
+      <FileName>Controls\PositionChangedEventArgs.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GraphSharp.Controls.FadeInTransition" Collapsed="true">
+    <Position X="0.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controls\Transitions\FadeInTransition.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GraphSharp.Controls.FadeOutTransition" Collapsed="true">
+    <Position X="2.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controls\Transitions\FadeOutTransition.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GraphSharp.Controls.FadeTransition" Collapsed="true">
+    <Position X="1.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAoAAAAAAAAI=</HashCode>
+      <FileName>Controls\Transitions\FadeTransition.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GraphSharp.Controls.TransitionBase" Collapsed="true">
+    <Position X="1.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>Controls\Transitions\TransitionBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="GraphSharp.Controls.VertexControl" Collapsed="true">
+    <Position X="5.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACBBBAAAAAQABgAAAAAAAAACAAAEAAAAAAA=</HashCode>
+      <FileName>Controls\VertexControl.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="GraphSharp.Controls.Animations.SimpleMoveAnimation" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="9.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controls\Animations\SimpleMoveAnimation.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="GraphSharp.Converters.CoordinatesToPointConverter" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="9.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Converters\CoordinatesToPointConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="GraphSharp.Converters.EdgeRouteToPathConverter" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="13.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Converters\EdgeRouteToPathConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="GraphSharp.Converters.GraphConverterHelper" Collapsed="true">
+    <Position X="8" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>Converters\GraphConverterHelper.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GraphSharp.Converters.PointArrayToString" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="9.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Converters\PointArrayToString.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="GraphSharp.Helpers.ObjectPool&lt;T&gt;" Collapsed="true">
+    <Position X="8" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIIEACAAAABAIAAAAAAAAAAAAAIAEgAAAAgAAAAAAAA=</HashCode>
+      <FileName>Helpers\ObjectPool.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GraphSharp.Properties.Resources" Collapsed="true">
+    <Position X="13.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAABEAAAAQAAAAAAAAAAAAAAAIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GraphSharp.Properties.Settings" Collapsed="true">
+    <Position X="8" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="GraphSharp.Controls.IAnimation" Collapsed="true">
+    <Position X="8" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controls\Animations\IAnimation.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="GraphSharp.Controls.IAnimationContext" Collapsed="true">
+    <Position X="9.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controls\Animations\IAnimationContext.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="GraphSharp.Controls.ICompoundVertexControl" Collapsed="true">
+    <Position X="11.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAAAAAAAAABAAAAAAAAADAAAAAAAA=</HashCode>
+      <FileName>Controls\ICompoundVertexControl.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="GraphSharp.Controls.ITransition" Collapsed="true">
+    <Position X="8" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>Controls\Animations\ITransition.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="GraphSharp.Helpers.IPoolObject" Collapsed="true">
+    <Position X="13.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAAAAAAAgAAAAAAAAAAAAAEAAAAAAA=</HashCode>
+      <FileName>Helpers\ObjectPool.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="GraphSharp.Controls.AlgorithmConstraints" Collapsed="true">
+    <Position X="8" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAABAAAAAAAAAAAAAIAAAAAAAAAAAAEAA=</HashCode>
+      <FileName>Controls\AlgorithmConstraints.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="GraphSharp.Controls.LayoutMode" Collapsed="true">
+    <Position X="9.75" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAQIAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controls\LayoutMode.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Delegate Name="GraphSharp.Controls.HighlightInfoChangedEventHandler" Collapsed="true">
+    <Position X="9.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAQAAAAAAAA=</HashCode>
+      <FileName>Controls\GraphElementControl.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="GraphSharp.Controls.HighlightTriggerEventHandler" Collapsed="true">
+    <Position X="11.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAABAAAAAAA=</HashCode>
+      <FileName>Controls\GraphElementControl.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="GraphSharp.Controls.PositionChangedEventHandler" Collapsed="true">
+    <Position X="13.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAAAAAAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controls\PositionChangedEventHandler.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Delegate Name="GraphSharp.Helpers.DisposingHandler" Collapsed="true">
+    <Position X="8" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Helpers\ObjectPool.cs</FileName>
+    </TypeIdentifier>
+  </Delegate>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

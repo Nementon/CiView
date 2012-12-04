@@ -1,0 +1,109 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:behavior="clr-namespace:GraphSharp.Controls;assembly=GraphSharp.Controls"
+        xmlns:graph="clr-namespace:EndObjectExplorer.ViewModel"
+        xmlns:model="clr-namespace:EndObjectExplorer.Model"
+        xmlns:zoom="clr-namespace:WPFExtensions.Controls;assembly=WPFExtensions"
+        xmlns:extbehaviour="clr-namespace:WPFExtensions.AttachedBehaviours;assembly=WPFExtensions"
+        xmlns:be="clr-namespace:EndObjectExplorer.Behavior"
+        mc:Ignorable="d" 
+        x:Class="EndObjectExplorer.MainWindow"
+        Title="MainWindow" Height="800" Width="1200"
+        x:Name="root">
+    <Window.Resources>
+        <!-- Data Template for CKVertex -->
+        <DataTemplate x:Key="CKVertexTemplate" DataType="{x:Type model:CKVertex}">
+            <StackPanel Orientation="Horizontal" Margin="5">
+                <TextBlock Text="{Binding Path=Name, Mode=OneWay}" Foreground="White" />
+            </StackPanel>
+        </DataTemplate>
+        <!-- Style for VertexControl -->
+        <Style TargetType="{x:Type behavior:VertexControl}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type behavior:VertexControl}">
+                        <Border BorderBrush="White" 
+                        Background="Black"
+            BorderThickness="2"
+            CornerRadius="10,10,10,10"
+            Padding="{TemplateBinding Padding}">
+                            <ContentPresenter Content="{TemplateBinding Vertex}" 
+                            ContentTemplate="{StaticResource CKVertexTemplate}"/>
+                            <Border.Effect>
+                                <DropShadowEffect BlurRadius="2" Color="LightGray" 
+                            Opacity="0.3" Direction="315"/>
+                            </Border.Effect>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!-- CKGraph Template -->
+        <DataTemplate x:Key="CKGraphTemplate">
+            <Grid>
+                <Border Background="#FFB92626">
+                    <graph:CKGraphLayout Graph="{Binding Path=.}" >
+                    </graph:CKGraphLayout>
+                </Border>
+                <i:Interaction.Behaviors>
+                    <be:CanvasInnerItemsControlDragBehavior />
+                </i:Interaction.Behaviors>
+            </Grid>
+        </DataTemplate>
+        <!-- CKGraphLayoutTemplate -->
+        <DataTemplate x:Key="GraphContenerTemplate">
+            <Grid>
+                <Border x:Name="bdInner" Background="#FFFEFEFE">
+                    <TextBlock Text="{Binding Path=RootServiceName}" />
+                </Border>
+                <graph:CKGraphLayout></graph:CKGraphLayout>
+            </Grid>
+        </DataTemplate>
+    </Window.Resources>
+    <!-- With use of CKGraphCollection --> 
+    <Grid>
+        <Grid Margin="316,0,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="417*"/>
+                <RowDefinition Height="352*"/>
+            </Grid.RowDefinitions>
+            <ItemsControl 
+                ItemsSource="{Binding Path=Graphs}"
+                ItemTemplate="{StaticResource ResourceKey=CKGraphTemplate}" Grid.RowSpan="2" 
+                >
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Canvas Width="884" Height="759" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+            <Button Content="AddGraph" HorizontalAlignment="Left" Margin="791,35,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_1" RenderTransformOrigin="-1.467,0.3"/>
+            <Button Content="RemoveGraph" HorizontalAlignment="Left" Margin="791,81,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_2"/>
+            <Button Content="AddVertex" HorizontalAlignment="Left" Margin="791,127,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_3"/>
+        </Grid>  
+        
+        <StackPanel HorizontalAlignment="Left" Height="759" VerticalAlignment="Top" Width="316">
+            <ItemsControl ItemsSource="{Binding Path=Graphs}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Path=RootServiceName}" />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+    </Grid>
+    <!-- With use of CKGraphLayoutCollection
+    <Grid>
+        <ItemsControl ItemsSource="{Binding Path=GraphsContener}"
+                      ItemTemplate="{StaticResource ResourceKey=GraphContenerTemplate}">
+        </ItemsControl>
+        <Button Content="AddGraph" HorizontalAlignment="Left" Margin="684,59,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_1"/>
+        <Button Content="RemoveGraph" HorizontalAlignment="Left" Margin="684,89,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_2"/>
+        <Button Content="AddVertex" HorizontalAlignment="Left" Margin="684,119,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_3"/>
+    </Grid>
+    -->
+</Window>
