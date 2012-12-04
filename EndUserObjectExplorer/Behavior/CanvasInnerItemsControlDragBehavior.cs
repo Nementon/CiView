@@ -19,17 +19,18 @@ namespace EndObjectExplorer.Behavior
     /// </summary>
     public class CanvasInnerItemsControlDragBehavior : Behavior<UIElement>
     {
-        private Point relativePositionToCanvasImediateChild;
+        private Point _relativePositionToCanvasImediateChild;
+        private Canvas _canvas;
+        private UIElement _canvasImediateChild;
 
         protected override void OnAttached()
         {
             base.OnAttached();
-            Canvas ownerCanvas = FindParentCanvas();
-            UIElement canvasImediateChild = FindCanvasImediateChild();
+            FindCanvasAndCanvasImediateChild();
 
             AssociatedObject.MouseLeftButtonDown += (sender, e) =>
             {
-                relativePositionToCanvasImediateChild = e.GetPosition(canvasImediateChild);
+                _relativePositionToCanvasImediateChild = e.GetPosition(_canvasImediateChild);
                 AssociatedObject.CaptureMouse();
             };
 
@@ -40,32 +41,20 @@ namespace EndObjectExplorer.Behavior
 
             AssociatedObject.MouseMove += (sender, e) =>
             {
-                Point relativePositionToCanvas = e.GetPosition(ownerCanvas);
-                Vector updatePosition = relativePositionToCanvas - relativePositionToCanvasImediateChild;
+                Point relativePositionToCanvas = e.GetPosition(_canvas);
+                Vector updatePosition = relativePositionToCanvas - _relativePositionToCanvasImediateChild;
     
                 if (AssociatedObject.IsMouseCaptured)
                 {
-                    if (updatePosition.X >= 0 && updatePosition.X <= ownerCanvas.Width)
-                        Canvas.SetLeft(canvasImediateChild, updatePosition.X);
-                    if (updatePosition.Y >= 0 && updatePosition.Y <= ownerCanvas.Height)
-                        Canvas.SetTop(canvasImediateChild, updatePosition.Y);
+                    if (updatePosition.X >= 0 && updatePosition.X <= _canvas.Width)
+                        Canvas.SetLeft(_canvasImediateChild, updatePosition.X);
+                    if (updatePosition.Y >= 0 && updatePosition.Y <= _canvas.Height)
+                        Canvas.SetTop(_canvasImediateChild, updatePosition.Y);
                 }
             };
         }
 
-        private Canvas FindParentCanvas()
-        {
-            DependencyObject parentCanvas;
-            parentCanvas = VisualTreeHelper.GetParent(AssociatedObject);
-            while (parentCanvas.GetType() != typeof(Canvas))
-            {
-                parentCanvas = VisualTreeHelper.GetParent(parentCanvas);
-            }
-            Debug.Assert(parentCanvas is Canvas);
-            return (Canvas)parentCanvas;
-        }
-
-        private UIElement FindCanvasImediateChild()
+        private void FindCanvasAndCanvasImediateChild()
         {
             DependencyObject child = AssociatedObject;
             DependencyObject parent = VisualTreeHelper.GetParent(AssociatedObject);
@@ -75,7 +64,9 @@ namespace EndObjectExplorer.Behavior
                 parent = VisualTreeHelper.GetParent(parent);
             }
             Debug.Assert(child is UIElement);
-            return (UIElement)child;
+            Debug.Assert(parent is Canvas);
+            _canvas = (Canvas)parent;
+            _canvasImediateChild = (UIElement)child;
         }
     }
 }
