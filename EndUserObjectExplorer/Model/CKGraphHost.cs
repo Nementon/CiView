@@ -16,6 +16,7 @@ using System.Security;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
 using QuickGraph;
+using EndUserObjectExplorer.Model;
 
 namespace EndObjectExplorer.Model
 {
@@ -148,28 +149,32 @@ namespace EndObjectExplorer.Model
             //_pluginRunner = Context.GetService<PluginRunner>(true);
 
             Graphs = new ObservableCollection<CKGraph>();
-            Graph = new CKGraph(
-                BuildServicesThree(ckAssemblieFolder)
-                );  
+            Graph = BuildGlobalCKGraph(ckAssemblieFolder); 
         }
 
-        private BidirectionAdapterGraph<IVertex, CKEdge> BuildServicesThree(String ckAssemblieFolder)
+        private CKGraph BuildGlobalCKGraph(String ckAssemblieFolder)
         {
             
             PluginDiscoverer discoverer = GetFooBarPluginDiscoverer(ckAssemblieFolder);
             Dictionary<IServiceInfo, ServiceVertex> servicesVerticesDic = new Dictionary<IServiceInfo, ServiceVertex>();
-            var serviceThree = new AdjacencyGraph<IVertex, CKEdge>();
+            Dictionary<IPluginInfo, PluginVertex> pluginsVerticesDic = new Dictionary<IPluginInfo, PluginVertex>();
+            CKGraph globalGraph = new CKGraph();
 
             foreach (var service in discoverer.AllServices)
             {
                 servicesVerticesDic.Add(service, new ServiceVertex(service));
             }
 
+            foreach (var plugin in discoverer.AllPlugins)
+            {
+                pluginsVerticesDic.Add(plugin, new PluginVertex(plugin));
+            }
+
             foreach (var service in servicesVerticesDic.Keys)
             {
                 if (service.Generalization != null)
                 {
-                    serviceThree.AddVerticesAndEdge(
+                    globalGraph.AddVerticesAndEdge(
                            new CKEdge(
                                servicesVerticesDic[service], 
                                servicesVerticesDic[service.Generalization]
@@ -178,11 +183,20 @@ namespace EndObjectExplorer.Model
                 }
                 else
                 {
-                    serviceThree.AddVertex(servicesVerticesDic[service]);
+                    globalGraph.AddVertex(servicesVerticesDic[service]);
+                }
+
+                foreach (var plugin in service.Implementations)
+                {
+                    globalGraph.AddVerticesAndEdge(
+                        new CKEdge(
+                            servicesVerticesDic[service],
+                            pluginsVerticesDic[plugin] 
+                            )
+                        );
                 }
             }
-
-           return new BidirectionAdapterGraph<IVertex, CKEdge> (serviceThree);
+            return globalGraph;
         }
 
         #region Internal Helper
