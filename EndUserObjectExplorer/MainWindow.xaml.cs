@@ -31,11 +31,12 @@ namespace EndObjectExplorer
         {
             InitializeComponent();
 
-            CKGraphHost host = new CKGraphHost("N:|Clouds|SkyDrive|Dev|C#|Civikey|Certified|Output|Debug");
+            CKGraphHost host = new CKGraphHost("H:|Clouds|SkyDrive|Dev|C#|Civikey|Certified|Output|Debug");
             _dataContext = new GraphLayoutViewModel(host);
             DataContext = _dataContext;
         }
 
+        #region Oldies
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
           //  _dataContext.Graphs.Add(new FuuCKGraph());
@@ -60,5 +61,6 @@ namespace EndObjectExplorer
                 //lastGraph.AddEdge(new CKEdge(v0, v1));
             //}
         }
+        #endregion
     }
 }

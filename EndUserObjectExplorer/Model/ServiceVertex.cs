@@ -12,7 +12,15 @@ namespace EndObjectExplorer.Model
     {
         IServiceInfo _serviceInfo;
         public IServiceInfo Service { get { return _serviceInfo; } }
-
+        public Boolean IsRoot
+        {
+            get 
+            {
+                if (_serviceInfo.Generalization == null)
+                    return true;
+                return false;
+            }
+        }
 
         public ServiceVertex(IServiceInfo serviceInfo)
         {

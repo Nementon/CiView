@@ -9,111 +9,42 @@ using QuickGraph;
 
 namespace EndObjectExplorer.Model
 {
-    public class Service
-    {
-        IServiceInfo Self { get; set; }
-        List<IPluginInfo> ImplementationPlugin { get; set; }
-        public Service(IServiceInfo s)
-        {
-            Self = s;
-            ImplementationPlugin = new List<IPluginInfo>();
-        }
-    }
-
     public class CKGraph : BidirectionalGraph<IVertex, CKEdge> //TODO UnBidirectionalGraph<CKVertex, IEdge<CKVertex>>
     {
-        #region Fields
-        CKGraphHost _host;
-        private IServiceInfo _serviceInfo;
-        private Dictionary<ServiceVertex, List<PluginVertex>> _three;
-        #endregion
 
-        #region Properties
-        public CKGraphHost Host { get { return _host; } }
-        public String RootServiceName { get; protected set; }
-        public Dictionary<ServiceVertex, List<PluginVertex>> Three { get { return _three; } }
-        public List<Service> T { get; set; }
+        public CKGraph() { }
         
-        #endregion
-
-        public CKGraph()
+        public CKGraph(BidirectionAdapterGraph<IVertex, CKEdge> servicesGraph)
         {
-            InitialiseGraph();
-            T = new List<Service>();
-            
+            ConvertToBidirectionalAndInitializeGraph(servicesGraph);
         }
 
-        public CKGraph(IServiceInfo serviceInfo, CKGraphHost host)
+        protected virtual void ConvertToBidirectionalAndInitializeGraph(BidirectionAdapterGraph<IVertex, CKEdge> servivesGraph)
         {
-            _host = host;
-            _serviceInfo = serviceInfo;
-            InitialiseGraph();
-        }
-
-        private CKGraph(CKGraphHost host)
-        {
-            InitialiseGraph();
-            _host = host;
-        }
-
-        protected virtual void InitialiseGraph()
-        {
-
-            if (_serviceInfo != null)
+            foreach (var vertex in servivesGraph.Vertices)
             {
-                RootServiceName = _serviceInfo.ServiceFullName;
-                buildThree(_serviceInfo, 0);
-            }
-            else
-            {
-              /*  CKVertex[] vertices = new CKVertex[5];
-                for (int i = 0; i < 5; ++i)
+                //TODO To improve : @see why i can't use BidirectionAdapterGraph<ServiceVertex, CKEdge>
+                if (vertex is ServiceVertex)
                 {
-                    //vertices[i] = new CKVertex("Salut");
-                    AddVertex(vertices[i]);
+                    AddVertex(vertex);
+                    foreach (var plugin in ((ServiceVertex)vertex).Service.Implementations)
+                    {
+                        PluginVertex pVertex = new PluginVertex(plugin);
+                        AddVertex(pVertex);
+                        // Real Implementation
+                        // AddEdge(new CKEdge(pVertex, vertex));
+
+                        // UnReal Implementation
+                        // Currently used to make the view more "user friendly" until the tree-layout algorithm of is up to date.
+                        AddEdge(new CKEdge(vertex, pVertex));
+                    }
                 }
-
-                AddEdge(new CKEdge(vertices[0], vertices[1]));
-                AddEdge(new CKEdge(vertices[0], vertices[2]));
-                AddEdge(new CKEdge(vertices[2], vertices[3]));
-                AddEdge(new CKEdge(vertices[3], vertices[4]));
-                RootServiceName = "Unknowed";
-            
-               */ }
-        }
-
-        // TODO Use Dictionary<CVertex(Service), CKVertex(Plugin)>
-        private IVertex buildThree(IServiceInfo service, int deph)
-        {
-           /* ServiceVertex generalizationService = null;
-            ServiceVertex currentService = new ServiceVertex(this, service);
-
-            if (service.Generalization != null)
-            {
-                generalizationService = buildThree(service.Generalization, ++deph);
             }
 
-            if (generalizationService != null)
+            foreach (var edge in servivesGraph.Edges)
             {
-                AddVertex(generalizationService);
-                AddVertex(currentService);
-    
-                AddEdge(new CKEdge(currentService, generalizationService));
+                AddEdge(edge);
             }
-            else
-            {
-                AddVertex(currentService);
-            }
-
-            // Finnaly add plugin implementation
-            foreach (IPluginInfo implementation in _serviceInfo.Implementations)
-            {
-                CKVertex pluginImplementation = new CKVertex(String.Format("Plugin : {0}", implementation.PluginFullName));
-                AddVertex(pluginImplementation);
-                AddEdge(new CKEdge(currentService, pluginImplementation));
-            }*/
-
-            return new ServiceVertex(service); // currentService;
         }
     }
 }

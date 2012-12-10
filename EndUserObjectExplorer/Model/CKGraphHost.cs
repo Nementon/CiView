@@ -123,15 +123,16 @@ namespace EndObjectExplorer.Model
         #region Fields
         private PluginRunner _pluginRunner;
         private List<CKGraph> _graphs;
-        public IContext Context { get; private set; }
-        public IPluginConfigAccessor Config { get; private set; }
-        public ILogService LogService { get; private set; }
-        public AdjacencyGraph<IVertex, CKEdge> ServicesThree { get; private set; }
+        public Dictionary<IServiceInfo, ServiceVertex> _serviceVerticesDic;
         #endregion
 
         #region Properties
         public PluginRunner PluginRunner { get { return _pluginRunner; } }
         public ObservableCollection<CKGraph> Graphs { get; private set; }
+        public IContext Context { get; private set; }
+        public IPluginConfigAccessor Config { get; private set; }
+        public ILogService LogService { get; private set; }
+        public CKGraph Graph { get; private set; }
         #endregion
 
         public CKGraphHost(String ckAssemblieFolder /*IContext context, IPluginConfigAccessor config, ILogService logService*/)
@@ -146,77 +147,42 @@ namespace EndObjectExplorer.Model
             //LogService = logService;
             //_pluginRunner = Context.GetService<PluginRunner>(true);
 
-            ServicesThree = BuildServicesThree(ckAssemblieFolder);
-            
-            // TODO Donnée a chaque graph, la linkedList de IServiceInfo
             Graphs = new ObservableCollection<CKGraph>();
-            /*foreach ()
-            {
-                Graphs.Add(
-                    new CKGraph(serviceInfo, this)
-                    );
-            } */       
-             
+            Graph = new CKGraph(
+                BuildServicesThree(ckAssemblieFolder)
+                );  
         }
 
-        //TODO <ServiceVertex, CKEdge>
-        private AdjacencyGraph<IVertex, CKEdge> BuildServicesThree(String ckAssemblieFolder)
+        private BidirectionAdapterGraph<IVertex, CKEdge> BuildServicesThree(String ckAssemblieFolder)
         {
+            
             PluginDiscoverer discoverer = GetFooBarPluginDiscoverer(ckAssemblieFolder);
-            List<ServiceVertex> serviceVertices = new List<ServiceVertex>();
+            Dictionary<IServiceInfo, ServiceVertex> servicesVerticesDic = new Dictionary<IServiceInfo, ServiceVertex>();
             var serviceThree = new AdjacencyGraph<IVertex, CKEdge>();
-            ConsoleManager.Toggle();
 
-            foreach (IServiceInfo serv in discoverer.AllServices)
+            foreach (var service in discoverer.AllServices)
             {
-                serviceVertices.Add(new ServiceVertex(serv));
+                servicesVerticesDic.Add(service, new ServiceVertex(service));
             }
 
-            foreach (ServiceVertex servVertex in serviceVertices)
+            foreach (var service in servicesVerticesDic.Keys)
             {
-                if (servVertex.Service.Generalization != null)
+                if (service.Generalization != null)
                 {
-                    ServiceVertex gen = serviceVertices.Where( 
-                       delegate(ServiceVertex item)
-                       {
-                          if ( item.Service == servVertex.Service.Generalization)
-                          {
-                              return true;
-                          }
-                          return false;
-                       }
-                    ).First();
-
                     serviceThree.AddVerticesAndEdge(
-                        new CKEdge(servVertex, gen)
-                    );
-                }
-                else
-                {
-                    serviceThree.AddVertex(servVertex);
-                }
-            }
-
-           /* foreach(IServiceInfo serv in discoverer.AllServices)
-            {
-                if (serv.Generalization != null)
-                {
-                    /*serviceThree.AddVerticesAndEdge(
-                        new TaggedEdge<IServiceInfo, string>(serv, serv.Generalization, String.Format("{0} generalisation", serv.ServiceFullName))
-                    );/
-                    serviceThree.AddVerticesAndEdge(
-                           new CKEdge(new ServiceVertex(serv), new ServiceVertex(serv.Generalization))
+                           new CKEdge(
+                               servicesVerticesDic[service], 
+                               servicesVerticesDic[service.Generalization]
+                            )
                         );
                 }
                 else
                 {
-                    serviceThree.AddVertex(new ServiceVertex(serv));
+                    serviceThree.AddVertex(servicesVerticesDic[service]);
                 }
-            }*/
+            }
 
-            Console.WriteLine(serviceThree);
-            ConsoleManager.Toggle();
-            return serviceThree;
+           return new BidirectionAdapterGraph<IVertex, CKEdge> (serviceThree);
         }
 
         #region Internal Helper

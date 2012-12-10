@@ -44,7 +44,7 @@ namespace EndObjectExplorer.ViewModel
     {
         #region Fields
         private ObservableCollection<CKGraph> _graphs;
-        private CKGraph _selectedGraph;
+        private IVertex _selectedVertex;
         private CKGraphHost _graphHost;
         #endregion
 
@@ -57,11 +57,19 @@ namespace EndObjectExplorer.ViewModel
             }
          }
 
+        public CKGraph Graph
+        {
+            get
+            {
+                return _graphHost.Graph;
+            }
+        }
+
         /// <summary>
         /// Returns the <see cref="EndObjectExplorer.Model.Graph"/>Graph</see> that the user has curently selected.
         /// </summary>
         /// TODO Implement it !
-        public CKGraph SelectedGraph
+        public IVertex SelectedVertex
         {
             get
             {
@@ -69,7 +77,7 @@ namespace EndObjectExplorer.ViewModel
             }
             set
             {
-                _selectedGraph = value;
+                _selectedVertex = value;
             }
         }
         #endregion
@@ -81,14 +89,6 @@ namespace EndObjectExplorer.ViewModel
         }
 
         #region Internal Helpers
-        int SelectedGraphIndex()
-        {
-            Contract.Assert((_selectedGraph != null), "Why current graph is equal to null ??");
-            Contract.Ensures(Contract.Result<int>() >= 0);
-            Contract.Ensures(Contract.Result<int>() < Graphs.Count);
-
-            return Graphs.IndexOf(_selectedGraph);    
-        }
         #endregion
     }
 }
