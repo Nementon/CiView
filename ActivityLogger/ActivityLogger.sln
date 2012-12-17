@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ActivityLogger", "ActivityLogger.csproj", "{68896444-8056-4B6B-A67E-1223FE3E176D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ActivityLogger.Tests", "ActivityLogger.Tests\ActivityLogger.Tests.csproj", "{1D5E8F90-41E6-44D6-8D84-7DADE793CC57}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModelView", "ModelView\ModelView.csproj", "{5A1E2C69-1056-4E2A-9CB5-F49DD2921D0D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{68896444-8056-4B6B-A67E-1223FE3E176D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68896444-8056-4B6B-A67E-1223FE3E176D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68896444-8056-4B6B-A67E-1223FE3E176D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68896444-8056-4B6B-A67E-1223FE3E176D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D5E8F90-41E6-44D6-8D84-7DADE793CC57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D5E8F90-41E6-44D6-8D84-7DADE793CC57}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D5E8F90-41E6-44D6-8D84-7DADE793CC57}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D5E8F90-41E6-44D6-8D84-7DADE793CC57}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A1E2C69-1056-4E2A-9CB5-F49DD2921D0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A1E2C69-1056-4E2A-9CB5-F49DD2921D0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A1E2C69-1056-4E2A-9CB5-F49DD2921D0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A1E2C69-1056-4E2A-9CB5-F49DD2921D0D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

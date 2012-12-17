@@ -5,3 +5,7 @@ Graph#.Controls/bin/
 Graph#.Controls/obj/
 Graph#/bin/
 Graph#/obj/
+ActivityLogger/ActivityLogger.Tests/bin/
+ActivityLogger/ActivityLogger.Tests/obj/
+ActivityLogger/ModelView/obj/
+ActivityLogger/obj/
