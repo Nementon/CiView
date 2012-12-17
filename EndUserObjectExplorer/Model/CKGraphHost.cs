@@ -16,7 +16,6 @@ using System.Security;
 using System.Runtime.InteropServices;
 using System.Diagnostics;
 using QuickGraph;
-using EndUserObjectExplorer.Model;
 
 namespace EndObjectExplorer.Model
 {
@@ -196,6 +195,29 @@ namespace EndObjectExplorer.Model
                         );
                 }
             }
+
+            // TODO
+            //foreach (var plugin in pluginsVerticesDic.Keys)
+            //{
+            //    var servRef = plugin.ServiceReferences;
+            //    if (servRef != null)
+            //    {
+            //        foreach (var referencedServ in servRef)
+            //        {
+            //            if (servicesVerticesDic.ContainsKey(referencedServ.Reference)
+            //                && pluginsVerticesDic.ContainsKey(plugin))
+            //            {
+            //                globalGraph.AddEdge(
+            //                    new CKEdge(
+            //                        pluginsVerticesDic[plugin],
+            //                        servicesVerticesDic[referencedServ.Reference]
+            //                        )
+            //                    );
+            //            }
+            //        }
+            //    }
+            //}
+
             return globalGraph;
         }
 

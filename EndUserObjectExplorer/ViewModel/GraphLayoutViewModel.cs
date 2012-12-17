@@ -1,45 +1,10 @@
-﻿using System;
-using EndObjectExplorer.Model; 
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using GraphSharp.Controls;
+﻿using EndObjectExplorer.Model;
 using System.Collections.ObjectModel;
-using System.Windows;
 using System.Diagnostics.Contracts;
 
 
 namespace EndObjectExplorer.ViewModel
 {
-    public class CKGraphLayout : GraphLayout<IVertex, CKEdge, CKGraph> 
-    { 
-
-        #region Fields
-        private String _rootServiceNames;
-        #endregion
-
-        #region Properties
-        public String RootServiceName 
-        {
-            get 
-            {
-                // TOOD
-                // return Graph.Vertices.First().Name;
-                return "Salut !";
-            }
-        }
-        #endregion 
-
-        public CKGraphLayout() 
-        {
-            OverlapRemovalAlgorithmType = "FSA";
-            LayoutAlgorithmType = "Tree";
-        }
-    }
-
     public class GraphLayoutViewModel : BaseViewModel
     {
         #region Fields
@@ -73,7 +38,7 @@ namespace EndObjectExplorer.ViewModel
         {
             get
             {
-                return null;
+                return _selectedVertex;
             }
             set
             {

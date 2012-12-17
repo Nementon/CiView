@@ -123,6 +123,13 @@
     </ApplicationDefinition>
     <Compile Include="Behavior\CanvasCKGraphInnerThreeDragBehavior.cs" />
     <Compile Include="Behavior\CanvasInnerItemsControlDragBehavior.cs" />
+    <Compile Include="Behavior\CKGraphHighLightBehavior.cs" />
+    <Compile Include="Behavior\CKVertexSubGraphDragBehavior.cs" />
+    <Compile Include="Behavior\DragBehavior.cs" />
+    <Compile Include="Behavior\CKVertexDragBehavior.cs" />
+    <Compile Include="Control\CKGraphLayout.cs" />
+    <Compile Include="Control\CKVertexControl.cs" />
+    <Compile Include="TemplateSelector\CKVertexDataTemplateSelector.cs" />
     <Compile Include="Model\CKGraphHost.cs" />
     <Compile Include="Model\IVertex.cs" />
     <Compile Include="Model\PluginVertex.cs" />
