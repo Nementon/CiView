@@ -7,8 +7,9 @@ namespace EndObjectExplorer.Model
 {
     public interface IVertex
     {
+         CKGraph OwnerGraph { get; set; }
          Boolean IsRunning { get; set; }
-         CKVertexType Type { get;  }
+         CKVertexType VertexType { get;  }
          String Name { get; }
          String Infos();
     }

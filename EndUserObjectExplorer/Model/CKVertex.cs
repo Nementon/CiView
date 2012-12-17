@@ -14,13 +14,17 @@ namespace EndObjectExplorer.Model
        Plugin = 2
     }
 
-    public abstract class CKVertex : IVertex 
+    public abstract class CKVertex : IVertex
     {
+        #region Fields
+        private CKGraph _ownerGraph;
+        #endregion
 
         #region Properties
         public Boolean IsRunning { get; set; }
-        public CKVertexType Type { get; protected set; }
+        public CKVertexType VertexType { get; protected set; }
         public String Name { get; protected set; }
+        public CKGraph OwnerGraph { get; set; }
         #endregion
 
         public CKVertex() { }

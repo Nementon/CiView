@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using CK.Plugin;
 using EndObjectExplorer.Model;
 
-namespace EndUserObjectExplorer.Model
+namespace EndObjectExplorer.Model
 {
     public class PluginVertex : CKVertex
     {
@@ -15,7 +15,7 @@ namespace EndUserObjectExplorer.Model
         public PluginVertex(IPluginInfo pluginInfo)
         {
             _pluginInfo = pluginInfo;
-            Type = CKVertexType.Plugin;
+            VertexType = CKVertexType.Plugin;
             Name = _pluginInfo.PluginFullName;
         }
     }
