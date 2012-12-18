@@ -10,9 +10,11 @@ namespace EndObjectExplorer.Model
 {
     public class CKGraph : BidirectionalGraph<IVertex, CKEdge> //TODO UnBidirectionalGraph<CKVertex, IEdge<CKVertex>>
     {
-        public CKGraph() 
-        { 
-            
+        public CKGraph() : this(false) {}
+
+        public CKGraph(bool allowParalleEdge)
+            : base(allowParalleEdge)
+        {
         }
 
         public List<IVertex> FindLinkedVertexOf(IVertex arg)

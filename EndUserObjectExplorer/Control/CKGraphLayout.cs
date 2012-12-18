@@ -8,6 +8,8 @@ using System.Windows;
 using EndObjectExplorer.Model;
 using EndUserObjectExplorer.Behavior;
 using GraphSharp;
+using GraphSharp.Algorithms.Layout;
+using GraphSharp.Algorithms.Layout.Simple.Tree;
 using GraphSharp.Controls;
 
 namespace EndUserObjectExplorer.Control
@@ -15,12 +17,14 @@ namespace EndUserObjectExplorer.Control
     public class CKGraphLayout : GraphLayout<IVertex, CKEdge, CKGraph>
     {
 
-        public CKGraphLayout()
+        public CKGraphLayout() 
         {
             OverlapRemovalAlgorithmType = "FSA";
-            LayoutAlgorithmType = "Tree";
+            //SimpleTreeLayoutParameters param = new SimpleTreeLayoutParameters();
+            //param.Direction = LayoutDirection.LeftToRight;
+            //LayoutParameters = param;
+            //LayoutAlgorithmType = "Tree";
             
-
            System.Windows.Interactivity.BehaviorCollection behaviors = System.Windows.Interactivity.Interaction.GetBehaviors(this);
            behaviors.Add(new CKGraphHighLightBehavior());
             

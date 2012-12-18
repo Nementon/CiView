@@ -84,8 +84,16 @@
     </Window.Resources>
     
     <Grid>
-        <zoom:ZoomControl>
-            <control:CKGraphLayout Graph="{Binding Path=Graph}" />
+        <StackPanel >
+            <ComboBox ItemsSource="{Binding LayoutAlgs}"
+                          SelectedItem="{Binding Path=SelectedLayoutAlg, Mode=TwoWay}"
+                          Width="150" Height="25" Margin="5" />
+        </StackPanel>
+        <zoom:ZoomControl Margin="0,40,0,0">
+            <control:CKGraphLayout Graph="{Binding Path=Graph}"
+                                    LayoutAlgorithmType="{Binding Path=SelectedLayoutAlg, Mode=OneWay}"
+                                    OverlapRemovalAlgorithmType="FSA"
+                                   />
         </zoom:ZoomControl>
     </Grid>
 

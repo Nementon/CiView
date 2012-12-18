@@ -158,63 +158,84 @@ namespace EndObjectExplorer.Model
             Dictionary<IServiceInfo, ServiceVertex> servicesVerticesDic = new Dictionary<IServiceInfo, ServiceVertex>();
             Dictionary<IPluginInfo, PluginVertex> pluginsVerticesDic = new Dictionary<IPluginInfo, PluginVertex>();
             CKGraph globalGraph = new CKGraph();
+           
 
             foreach (var service in discoverer.AllServices)
             {
-                servicesVerticesDic.Add(service, new ServiceVertex(service));
+                var serviceVertex = new ServiceVertex(service);
+                servicesVerticesDic.Add(service, serviceVertex);
+                globalGraph.AddVertex(serviceVertex);
             }
 
             foreach (var plugin in discoverer.AllPlugins)
             {
-                pluginsVerticesDic.Add(plugin, new PluginVertex(plugin));
+                var pluginVertex = new PluginVertex(plugin);
+                pluginsVerticesDic.Add(plugin, pluginVertex);
+                globalGraph.AddVertex(pluginVertex);
             }
 
             foreach (var service in servicesVerticesDic.Keys)
             {
                 if (service.Generalization != null)
                 {
-                    globalGraph.AddVerticesAndEdge(
-                           new CKEdge(
-                               servicesVerticesDic[service], 
-                               servicesVerticesDic[service.Generalization]
+                    globalGraph.AddEdge(
+                        new CKEdge(
+                            servicesVerticesDic[service.Generalization],
+                            servicesVerticesDic[service]
                             )
                         );
-                }
-                else
-                {
-                    globalGraph.AddVertex(servicesVerticesDic[service]);
                 }
 
                 foreach (var plugin in service.Implementations)
                 {
                     globalGraph.AddVerticesAndEdge(
                         new CKEdge(
-                            servicesVerticesDic[service],
-                            pluginsVerticesDic[plugin] 
+                            pluginsVerticesDic[plugin],
+                            servicesVerticesDic[service]
                             )
                         );
                 }
+
+                foreach (var plugin in pluginsVerticesDic.Keys)
+                {
+                    foreach (var unkwn in plugin.ServiceReferences)
+                    {
+                        globalGraph.AddVerticesAndEdge(
+                        new CKEdge(
+                            pluginsVerticesDic[plugin],
+                            servicesVerticesDic[unkwn.Reference]
+                            )
+                        );
+                    }
+                }
             }
 
-            // TODO
-            //foreach (var plugin in pluginsVerticesDic.Keys)
+            //foreach (var service in servicesVerticesDic.Keys)
             //{
-            //    var servRef = plugin.ServiceReferences;
-            //    if (servRef != null)
+            //    if (service.Generalization != null)
             //    {
-            //        foreach (var referencedServ in servRef)
-            //        {
-            //            if (servicesVerticesDic.ContainsKey(referencedServ.Reference)
-            //                && pluginsVerticesDic.ContainsKey(plugin))
-            //            {
-            //                globalGraph.AddEdge(
-            //                    new CKEdge(
-            //                        pluginsVerticesDic[plugin],
-            //                        servicesVerticesDic[referencedServ.Reference]
-            //                        )
-            //                    );
-            //            }
-            //        }
+            //        globalGraph.AddVerticesAndEdge(
+            //               new CKEdge(
+            //                   servicesVerticesDic[service.Generalization],
+            //                   servicesVerticesDic[service]
+                               
+            //                )
+            //            );
+            //    }
+            //    else
+            //    {
+            //        globalGraph.AddVertex(servicesVerticesDic[service]);
+            //    }
+
+            //    foreach (var plugin in service.Implementations)
+            //    {
+            //        globalGraph.AddVerticesAndEdge(
+            //            new CKEdge(
+            //                pluginsVerticesDic[plugin],
+            //                servicesVerticesDic[service]
+        
+            //                )
+            //            );
             //    }
             //}
 
