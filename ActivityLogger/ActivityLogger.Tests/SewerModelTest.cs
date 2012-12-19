@@ -1,5 +1,5 @@
 ﻿using System;
-using CiView.SewerModel;
+using ActivityLogger.SewerModel;
 using CK.Core;
 using NUnit.Framework;
 

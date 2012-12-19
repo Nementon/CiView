@@ -6,7 +6,7 @@ using CK.Core;
 using System.Diagnostics;
 using System.Diagnostics.Contracts;
 
-namespace CiView.SewerModel
+namespace ActivityLogger.SewerModel
 {
     public class LineItem
     {

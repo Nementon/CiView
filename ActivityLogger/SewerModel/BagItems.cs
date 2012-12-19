@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace CiView.SewerModel
+namespace ActivityLogger.SewerModel
 {
     public class BagItems
     {
