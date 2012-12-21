@@ -9,20 +9,10 @@ namespace EndObjectExplorer.ViewModel
     public class GraphLayoutViewModel : BaseViewModel
     {
         #region Fields
-        private IVertex _selectedVertex;
         private string _selectLayoutAlg;
-        private CKGraphHost _graphHost;
         #endregion
 
         #region Properties
-        
-        public ObservableCollection<CKGraph> Graphs {
-            get
-            {
-                return _graphHost.Graphs;
-            }
-         }
-
         public string SelectedLayoutAlg 
         {
             get
@@ -35,43 +25,15 @@ namespace EndObjectExplorer.ViewModel
                 NotifyPropertyChanged("SelectedLayoutAlg");
             }
         }
-
-        public List<string> LayoutAlgs
-        {
-            get;
-            private set;
-        }
-
-        public CKGraph Graph
-        {
-            get
-            {
-                return _graphHost.Graph;
-            }
-        }
-
-        /// <summary>
-        /// Returns the <see cref="EndObjectExplorer.Model.Graph"/>Graph</see> that the user has curently selected.
-        /// </summary>
-        /// TODO Implement it !
-        public IVertex SelectedVertex
-        {
-            get
-            {
-                return _selectedVertex;
-            }
-            set
-            {
-                _selectedVertex = value;
-            }
-        }
+        public List<string> LayoutAlgs { get; private set; }
+        public CKGraph Graph { get; private set; }
         #endregion
 
-        public GraphLayoutViewModel(CKGraphHost host)
+        public GraphLayoutViewModel(CKGraph graph)
         {
-            Contract.Requires(host != null);
-            _graphHost = host;
+            Contract.Requires(graph != null);
             RegisterLayoutAlgs();
+            Graph = graph;
         }
 
         #region Internal Helpers

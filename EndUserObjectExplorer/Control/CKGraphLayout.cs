@@ -11,10 +11,11 @@ using GraphSharp;
 using GraphSharp.Algorithms.Layout;
 using GraphSharp.Algorithms.Layout.Simple.Tree;
 using GraphSharp.Controls;
+using QuickGraph;
 
 namespace EndUserObjectExplorer.Control
 {
-    public class CKGraphLayout : GraphLayout<IVertex, CKEdge, CKGraph>
+    public class CKGraphLayout : GraphLayout<IVertex, Edge<IVertex>, CKGraph>
     {
 
         public CKGraphLayout() 
@@ -34,7 +35,7 @@ namespace EndUserObjectExplorer.Control
         {
             //base.CreateVertexControl(vertex);
             VertexControl presenter;
-            var compoundGraph = Graph as ICompoundGraph<IVertex, CKEdge>;
+            var compoundGraph = Graph as ICompoundGraph<IVertex, Edge<IVertex>>;
 
             // Create the Control of the vertex
             presenter = new CKVertexControl

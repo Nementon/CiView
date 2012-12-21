@@ -41,9 +41,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libraries\CiviKey\CK.Context.dll</HintPath>
     </Reference>
-    <Reference Include="CK.Core, Version=2.7.40.0, Culture=neutral, PublicKeyToken=731c291b31fb8d27, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\ck-desktop\Output\Tests\Debug\CK.Core.dll</HintPath>
+    <Reference Include="CK.Core">
+      <HintPath>..\Libraries\CiviKey\CK.Core.dll</HintPath>
     </Reference>
     <Reference Include="CK.Plugin.Config.Model, Version=1.0.0.0, Culture=neutral, PublicKeyToken=731c291b31fb8d27, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -90,11 +89,10 @@
       <HintPath>..\Libraries\CiviKey\CK.Windows.Core.dll</HintPath>
     </Reference>
     <Reference Include="Common.Logging">
-      <HintPath>..\..\..\..\ck-desktop\Output\Tests\Debug\Common.Logging.dll</HintPath>
+      <HintPath>..\Libraries\CiviKey\Common.Logging.dll</HintPath>
     </Reference>
-    <Reference Include="QuickGraph, Version=3.6.61114.0, Culture=neutral, PublicKeyToken=f3fb40175eec2af3, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libraries\QuickGraph.dll</HintPath>
+    <Reference Include="QuickGraph">
+      <HintPath>..\Libraries\QuickGraph\QuickGraph.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -113,7 +111,7 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="WPFExtensions">
-      <HintPath>..\Libraries\WPFExtensions.dll</HintPath>
+      <HintPath>..\Libraries\WPF\WPFExtensions.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -125,12 +123,13 @@
     <Compile Include="Behavior\CanvasInnerItemsControlDragBehavior.cs" />
     <Compile Include="Behavior\CKGraphHighLightBehavior.cs" />
     <Compile Include="Behavior\CKVertexSubGraphDragBehavior.cs" />
-    <Compile Include="Behavior\DragBehavior.cs" />
     <Compile Include="Behavior\CKVertexDragBehavior.cs" />
     <Compile Include="Control\CKGraphLayout.cs" />
     <Compile Include="Control\CKVertexControl.cs" />
+    <Compile Include="Model\ServiceGeneralisationEdge.cs" />
+    <Compile Include="Model\ServiceImplementationEdge.cs" />
+    <Compile Include="Model\ServiceReferenceEdge.cs" />
     <Compile Include="TemplateSelector\CKVertexDataTemplateSelector.cs" />
-    <Compile Include="Model\CKGraphHost.cs" />
     <Compile Include="Model\IVertex.cs" />
     <Compile Include="Model\PluginVertex.cs" />
     <Compile Include="Model\ServiceVertex.cs" />
@@ -144,7 +143,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Model\CKEdge.cs" />
     <Compile Include="Model\CKGraph.cs" />
     <Compile Include="Model\CKVertex.cs" />
     <Compile Include="MainWindow.xaml.cs">
