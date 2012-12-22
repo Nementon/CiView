@@ -17,7 +17,6 @@ namespace EndObjectExplorer.Model
         public PluginVertex(IPluginInfo pluginInfo)
         {
             _pluginInfo = pluginInfo;
-            VertexType = CKVertexType.Plugin;
         }
     }
 }

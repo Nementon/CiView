@@ -9,7 +9,6 @@ namespace EndObjectExplorer.Model
     {
          CKGraph OwnerGraph { get; set; }
          Boolean IsRunning { get; set; }
-         CKVertexType VertexType { get;  }
          String Infos();
     }
 }

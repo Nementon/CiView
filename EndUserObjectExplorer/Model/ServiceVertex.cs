@@ -25,7 +25,6 @@ namespace EndObjectExplorer.Model
         public ServiceVertex(IServiceInfo serviceInfo)
         {
             _serviceInfo = serviceInfo;
-            VertexType = CKVertexType.Service;
         }
     }
 }

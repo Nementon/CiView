@@ -22,10 +22,12 @@ namespace EndUserObjectExplorer.TemplateSelector
             Debug.Assert(vertex != null); if (vertex == null) return null;
             Debug.Assert(ServiceTemplate != null); Debug.Assert(PluginTemplate != null);
 
-            if (vertex.VertexType == EndObjectExplorer.Model.CKVertexType.Service)
+            if (vertex is ServiceVertex)
                 return ServiceTemplate;
-            else
+            else if (vertex is PluginVertex)
                 return PluginTemplate;
+            else
+                throw new Exception("Unknow IVertex Type");
         }
     }
 }
