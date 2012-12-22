@@ -17,13 +17,11 @@ namespace EndObjectExplorer.Model
     public abstract class CKVertex : IVertex
     {
         #region Fields
-        private CKGraph _ownerGraph;
         #endregion
 
         #region Properties
         public Boolean IsRunning { get; set; }
         public CKVertexType VertexType { get; protected set; }
-        public String Name { get; protected set; }
         public CKGraph OwnerGraph { get; set; }
         #endregion
 

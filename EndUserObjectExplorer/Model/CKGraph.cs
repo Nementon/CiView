@@ -64,7 +64,7 @@ namespace EndObjectExplorer.Model
         }
         #endregion
 
-        #region Private Methodes
+        #region Private API
         private void InitializeGraph(string ckAssemblieFolderPath)
         {
             PluginDiscoverer discoverer = GetFooBarPluginDiscoverer(ckAssemblieFolderPath);
@@ -135,11 +135,11 @@ namespace EndObjectExplorer.Model
         {
             foreach (var plugin in _pluginsVerticesDic.Keys)
             {
-                AddPluginServiceReferencesEdgeFor(plugin);
+                AddPluginServiceReferencesEdgesFor(plugin);
             }
         }
 
-        private void AddPluginServiceReferencesEdgeFor(IPluginInfo plugin)
+        private void AddPluginServiceReferencesEdgesFor(IPluginInfo plugin)
         {
             foreach (var referencedService in plugin.ServiceReferences)
             {

@@ -19,7 +19,7 @@
     <Window.Resources>
         
         <!-- DataTemplate for CKServiceVertex-->
-        <DataTemplate x:Key="CKServiceTemplate" DataType="{x:Type model:CKVertex}">
+        <DataTemplate x:Key="CKServiceTemplate" DataType="{x:Type model:ServiceVertex}">
             <Border
                 Background="LightBlue" 
 				BorderBrush="DarkGray" 
@@ -28,13 +28,13 @@
 				Padding="10"
             >
                 <Grid  Margin="5">
-                    <TextBlock Text="{Binding Path=Name}" Foreground="White" />
+                    <TextBlock Text="{Binding Path=Service.ServiceFullName}" Foreground="White" />
                 </Grid>
             </Border>
         </DataTemplate>
         
         <!-- DataTemplate for CKPluginVertex -->
-        <DataTemplate x:Key="CKPluginTemplate" DataType="{x:Type model:CKVertex}">
+        <DataTemplate x:Key="CKPluginTemplate" DataType="{x:Type model:PluginVertex}">
             <Border
                 Background="LightGreen" 
 				BorderBrush="DarkGray" 
@@ -43,7 +43,7 @@
 				Padding="10"
             >
                 <Grid Margin="5">
-                    <TextBlock Text="{Binding Path=Name}" Foreground="White" />
+                    <TextBlock Text="{Binding Path=Plugin.PublicName}" Foreground="White" />
                 </Grid>
             </Border>
         </DataTemplate>
@@ -87,7 +87,7 @@
         <StackPanel >
             <ComboBox ItemsSource="{Binding LayoutAlgs}"
                           SelectedItem="{Binding Path=SelectedLayoutAlg, Mode=TwoWay}"
-                          Width="150" Height="25" Margin="5" />
+                        Margin="5" />
             <Button Content="Toggle Hide/Show OptionalTryStart Edges" Click="Button_Click_1" />
         </StackPanel>
         <zoom:ZoomControl Margin="0,80,0,0">

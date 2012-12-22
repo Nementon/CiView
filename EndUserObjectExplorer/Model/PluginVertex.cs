@@ -12,11 +12,12 @@ namespace EndObjectExplorer.Model
     {
         IPluginInfo _pluginInfo;
 
+        public IPluginInfo Plugin { get { return _pluginInfo; } }
+
         public PluginVertex(IPluginInfo pluginInfo)
         {
             _pluginInfo = pluginInfo;
             VertexType = CKVertexType.Plugin;
-            Name = _pluginInfo.PluginFullName;
         }
     }
 }
