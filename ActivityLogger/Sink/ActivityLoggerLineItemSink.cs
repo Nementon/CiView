@@ -26,7 +26,7 @@ namespace ActivityLogger.Sink
 
         void IActivityLoggerSink.OnContinueOnSameLevel(LogLevel level, string text)
         {
-            LineItem lineItem = new LineItem(text, level, bag);
+            LineItem lineItem = new LineItem(text, level, bag, true);
             currentLineItem.InsertChild(lineItem);
         }
 
@@ -52,7 +52,7 @@ namespace ActivityLogger.Sink
 
         void IActivityLoggerSink.OnGroupClose(IActivityLogGroup g, IReadOnlyList<ActivityLogGroupConclusion> conclusions)
         {
-            currentLineItem = currentLineItem.Previous;
+            currentLineItem = currentLineItem.Parent;
         }
 
 

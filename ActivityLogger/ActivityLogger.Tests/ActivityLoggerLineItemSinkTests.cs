@@ -15,7 +15,6 @@ namespace ActivityLogger.Tests
         IDefaultActivityLogger logger = DefaultActivityLogger.Create();
         BagItems bag = new BagItems();
 
-        [Test]
         public void ActivityLoggerSinkRegistred()
         {
             ActivityLoggerLineItemSink log = new ActivityLoggerLineItemSink(bag);

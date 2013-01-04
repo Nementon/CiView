@@ -69,7 +69,7 @@ namespace ActivityLogger.SewerModel
             : this(content, logLevel, host, false) { }
 
         public LineItem(String content, LogLevel logLevel, BagItems host, bool isCollaspsed)
-            : this(content, logLevel, host, false, false) { }
+            : this(content, logLevel, host, isCollaspsed, false) { }
         #endregion
 
         public LineItem(String content, LogLevel logLevel, BagItems host, bool isCollaspsed, bool isEllipseCollapsed)
@@ -122,7 +122,7 @@ namespace ActivityLogger.SewerModel
             {
                 child.NextError = child;
             }
-            Host.OnChildInserted(this, EventArgs.Empty);
+            Host.OnChildInserted(child, EventArgs.Empty);
             
         }
 

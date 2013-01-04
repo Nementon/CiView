@@ -43,7 +43,11 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>C:\Program Files (x86)\NUnit 2.6.2\bin\nunit.framework.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -61,11 +65,20 @@
     <Compile Include="ActivityLoggerLineItemSinkTests.cs" />
     <Compile Include="SewerModelTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WPFTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ActivityLogger.csproj">
       <Project>{68896444-8056-4b6b-a67e-1223fe3e176d}</Project>
       <Name>ActivityLogger</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ModelView\ModelView.csproj">
+      <Project>{5a1e2c69-1056-4e2a-9cb5-f49dd2921d0d}</Project>
+      <Name>ModelView</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TestWPF\TestWPF.csproj">
+      <Project>{9340cb24-bad6-4019-8027-5df66b51af45}</Project>
+      <Name>TestWPF</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

@@ -13,6 +13,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ModelView.ViewModel;
+
 
 namespace ModelView
 {//equaero
@@ -21,26 +23,32 @@ namespace ModelView
     /// </summary>
     public partial class MainWindow : Window
     {
+        private BagItems _bag;
         public MainWindow()
         {
-            InitializeComponent();
-            BagItems bag = new BagItems();
-            LineItem root = new LineItem("Root", LogLevel.Trace, bag);
-            LineItem rootChild = new LineItem("rootChild", LogLevel.Trace, bag);
-            LineItem rootChildChild = new LineItem("RootChildFirstChild", LogLevel.Error, bag);
-
-            bag.InsterRootItem(root);
-            root.InsertChild(rootChild);
-            root.InsertChild(rootChildChild);
-
-            tree.Items.Add(root.ToString());
-            TreeViewItem t = new TreeViewItem();
-            t.Items.Add(rootChild.ToString());
-            t.Items.Add(rootChildChild.ToString());
-            tree.Items.Add(t);
-           
+            _bag = new BagItems();
+            DataContext = new ActivityLoggerViewModel(_bag);
             
         }
-     
+
+        private void listBox1_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            
+        }
+
+        private void LogLevel_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void LogLevel1_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            
+        } 
     }
 }

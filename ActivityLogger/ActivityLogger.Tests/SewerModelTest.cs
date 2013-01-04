@@ -83,7 +83,7 @@ namespace ActivityLogger.Tests
             LineItem rootChildAliceChild3 = new LineItem("Fille2 d'Alice 3", LogLevel.Trace, bag);
             //Bob Family
             LineItem rootChildBob = new LineItem("Bob", LogLevel.Trace, bag);
-
+            
             bag.InsterRootItem(root);
             root.InsertChild(rootChild);
             rootChild.InsertChild(rootChildChild);

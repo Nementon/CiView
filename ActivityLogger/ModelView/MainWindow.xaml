@@ -1,9 +1,34 @@
 ﻿<Window x:Class="ModelView.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="ActivityLogger" Height="1000" Width="1000">
-    <Grid x:Name="grid">
-        <TreeView x:Name="tree" TextElement.FontSize="15">
-        </TreeView>
+        Title="ActivityLogger" Height="600" Width="1000">
+    <Grid Height="570" VerticalAlignment="Bottom">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="799*"/>
+            <ColumnDefinition Width="193*"/>
+        </Grid.ColumnDefinitions>
+        <ListBox x:Name="listBox1" Height="400" Margin="10,0,9,120" VerticalAlignment="Bottom" ItemsSource="{Binding Lb}" SelectionChanged="listBox1_SelectionChanged"/>
+        <ToolBar x:Name="TB1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="56" Height="28" Margin="10,10,0,0" Header="View">
+            <Separator Height="23" Margin="0" VerticalAlignment="Top" Width="10"/>
+            <Menu x:Name="ViewMenu" Height="60" VerticalAlignment="Top" Width="127">
+                <Button Content="CollapseAllLogs" Click="Button_Click_1"/>
+                <Button Content="UnCollapseAllLogs"/>
+            </Menu>
+        </ToolBar>
+        <Expander x:Name="PurningFiltersExpander" Grid.Column="1" Header="Purning Filters" Margin="10,50,11,422" Cursor="ScrollS">
+            <Grid Background="#FFE5E5E5"/>
+        </Expander>
+        <Expander x:Name="DisplayFiltersExpander" Grid.Column="1" Header="Display Filters" HorizontalAlignment="Left" Margin="10,181,0,0" VerticalAlignment="Top" Width="172" Height="134">
+            <Expander x:Name="LogLevelFilterExpander" Header="LogLevelFilter" HorizontalAlignment="Left" Width="160" Margin="10,0,0,0">
+                <WrapPanel x:Name="LogLevelPanel" HorizontalAlignment="Left" Height="82" Width="74" Margin="27,0,0,0">
+                    <CheckBox Content="Info"/>
+                    <CheckBox Content="Trace"/>
+                    <CheckBox Content="Warn"/>
+                    <CheckBox Content="Error"/>
+                    <CheckBox Content="Fatal"/>
+                </WrapPanel>
+            </Expander>
+        </Expander>
+        <ListBox x:Name="InfoBox" HorizontalAlignment="Left" Height="105" Margin="10,455,0,0" VerticalAlignment="Top" ItemsSource="{Binding Ib}" Width="779"/>
     </Grid>
 </Window>
