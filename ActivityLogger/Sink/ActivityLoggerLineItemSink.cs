@@ -26,7 +26,7 @@ namespace ActivityLogger.Sink
 
         void IActivityLoggerSink.OnContinueOnSameLevel(LogLevel level, string text)
         {
-            LineItem lineItem = new LineItem(text, level, bag, true);
+            LineItem lineItem = new LineItem(text, level, bag);
             currentLineItem.InsertChild(lineItem);
         }
 

@@ -76,10 +76,6 @@
       <Project>{5a1e2c69-1056-4e2a-9cb5-f49dd2921d0d}</Project>
       <Name>ModelView</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TestWPF\TestWPF.csproj">
-      <Project>{9340cb24-bad6-4019-8027-5df66b51af45}</Project>
-      <Name>TestWPF</Name>
-    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

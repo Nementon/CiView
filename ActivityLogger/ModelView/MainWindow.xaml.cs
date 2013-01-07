@@ -31,24 +31,9 @@ namespace ModelView
             
         }
 
-        private void listBox1_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            
-        }
-
-        private void LogLevel_Checked(object sender, RoutedEventArgs e)
+        private void ReDisplayButton_Click_1(object sender, RoutedEventArgs e)
         {
 
         }
-
-        private void LogLevel1_Checked(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-            
-        } 
     }
 }

@@ -6,27 +6,39 @@ using ActivityLogger.SewerModel;
 using ActivityLogger.Sink;
 using CK.Core;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 namespace ModelView.ViewModel
 {
-    public class ActivityLoggerViewModel
+    public class ActivityLoggerViewModel : BaseViewModel
     {
-        public ObservableCollection<string> _lb;
-        public ObservableCollection<string> Lb { get { return _lb; } }
+        #region Properties
+        public ObservableCollection<string> _logsList;
+        public ObservableCollection<string> LogsList { get { return _logsList; } }
         public PaginatedObservableCollection<LineItem> obs = new PaginatedObservableCollection<LineItem>(10);
-        public ObservableCollection<string> _ib;
-        public ObservableCollection<string> Ib {get{return _ib;}}
-        public bool LogLevelInfoIsChecked = true;
-        public bool LogLevelTaceIsChecked = true;
-        public bool LogLevelWarnIsChecked = true;  
-        public bool LogLevelErrorIsChecked = false;        
-        public bool LogLevelFatalIsChecked = false;
+        public ObservableCollection<string> _logsListInfoBox;
+        public ObservableCollection<string> LogsListInfoBox { get { return _logsListInfoBox; } }
+        private bool _logLevelInfoIsChecked = false;
+        public bool _logLevelTaceIsChecked = true;
+        public bool _logLevelWarnIsChecked = false;
+        public bool _logLevelErrorIsChecked = true;
+        public bool _logLevelFatalIsChecked = false;
+        public bool LogLevelInfoIsChecked { get { return _logLevelInfoIsChecked; } set { _logLevelInfoIsChecked = value; } }
+        public bool LogLevelTaceIsChecked { get { return _logLevelTaceIsChecked; } set { _logLevelTaceIsChecked = value; } }
+        public bool LogLevelWarnIsChecked { get { return _logLevelWarnIsChecked; } set { _logLevelWarnIsChecked = value; } }
+        public bool LogLevelErrorIsChecked { get { return _logLevelErrorIsChecked; } set { _logLevelErrorIsChecked = value; } }
+        public bool LogLevelFatalIsChecked { get { return _logLevelFatalIsChecked; } set { _logLevelFatalIsChecked = value; } }
+        private ICommand reDisplayCommand;
+        //private ICommand checkLogLevelsCommand;
+        #endregion
+
+       
 
         public ActivityLoggerViewModel(BagItems bag)
         {
-            _lb = new ObservableCollection<string>();
+            _logsList = new ObservableCollection<string>();
+            _logsListInfoBox = new ObservableCollection<string>();
             IDefaultActivityLogger logger = DefaultActivityLogger.Create();
-            //BagItems bag = new BagItems();
 
             ActivityLoggerLineItemSink log = new ActivityLoggerLineItemSink(bag);
 
@@ -34,53 +46,52 @@ namespace ModelView.ViewModel
             bag.ChildInserted += addLogToObs;
             logger.Register(log);
 
-            using (logger.OpenGroup(LogLevel.Trace, () => "EndMainGroup", "MainGroup"))
+            using (logger.OpenGroup(LogLevel.Trace, () => "EndMainGroup", "MainGroup (trace)"))
             {
-                logger.Trace("First");
-                logger.Trace("Second");
-                logger.Trace("Third");
-                logger.Info("last");
-                using (logger.OpenGroup(LogLevel.Info, () => "EndInfoGroup", "InfoGroup"))
+                logger.Info("last (info)");
+                using (logger.OpenGroup(LogLevel.Info, () => "EndInfoGroup", "InfoGroup (info)"))
                 {
-                    logger.Info("Second");
-                    logger.Trace("Fourth");
+                    logger.Info("Second (info)");
+                    logger.Trace("Fourth (trace)");
                     using (logger.OpenGroup(LogLevel.Warn, () => "EndWarnGroup", "WarnGroup"))
                     {
-                        logger.Info("Warn!");
+                        logger.Warn("Warn! (Warn)");
                        
                     }
-                    logger.Error("Erreur");
+                    logger.Error("Erreur (Erreur)");
                 }
-                logger.Warn("warntest");
+                logger.Fatal("Fatal (Fatal)");
             }
         }
 
         private void addLogToObs(LineItem sender, EventArgs e)
         {
+
             obs.Add(sender);
-            addLogToLb(sender);            
+            addLogToLogsList(sender);
+            addInfoLogToInfoBox(sender);
         }
 
-        private void addLogToLb(LineItem sender)
+        private void addLogToLogsList(LineItem sender)
         {
-            CheckCollapseFilter(sender);
+            checkCollapseFilter(sender);
             if (sender.IsCollapsed)
             {
 
                 if ((sender.Previous != null) && !sender.Previous.IsCollapsed)
                 {
-                    Lb.Add("[...]");
+                    LogsList.Add("[...]");
                 }
             }
             else
             {
-                Lb.Add(formatLog(sender));
+                LogsList.Add(formatLog(sender));
             }
         }
 
-        private void CheckCollapseFilter(LineItem sender)
+        private void checkCollapseFilter(LineItem sender)
         {
-            if ((LogLevelTaceIsChecked && (sender.LogType.Equals(LogLevel.Trace)))||
+            if (LogLevelTaceIsChecked && (sender.LogType.Equals(LogLevel.Trace))||
                 LogLevelInfoIsChecked && (sender.LogType.Equals(LogLevel.Info)) ||
                 LogLevelErrorIsChecked && (sender.LogType.Equals(LogLevel.Error))||
                 LogLevelWarnIsChecked && (sender.LogType.Equals(LogLevel.Warn))||
@@ -125,33 +136,116 @@ namespace ModelView.ViewModel
             }
         }
 
-        public void CollapseAllLogs()
+        public void collapseAllLogs()
         {
-            Lb.Clear();
+            LogsList.Clear();
             foreach (LineItem i in obs)
             {
                 i.IsCollapsed = true;
-                addLogToLb(i);
+                addLogToLogsList(i);
             }
         }
 
-        public void UncollapseAllLogs()
+        public void uncollapseAllLogs()
         {
-            Lb.Clear();
+            LogsList.Clear();
             foreach (LineItem i in obs)
             {
                 i.IsCollapsed = false;
-                addLogToLb(i);
+                addLogToLogsList(i);
             }
         }
         
         public void addInfoLogToInfoBox(LineItem sender)
         {
-            Ib.Add("Content : " + sender.Content);
-            Ib.Add("Deph : " + sender.Depth);
-            Ib.Add("Parent : " + sender.Parent.Content);
-            Ib.Add("Children : " + sender.FirstChild.Content);
+            
+            LogsListInfoBox.Add("Content : " + sender.Content);
+            LogsListInfoBox.Add("Deph : " + sender.Depth);
+            LogsListInfoBox.Add("logLevel : " + sender.LogType.ToString());
+            if (sender.Parent != null)
+            {
+                LogsListInfoBox.Add("Parent : " + sender.Parent.Content);
+            }
+            else
+            {
+                LogsListInfoBox.Add("Parent : null");
+            }
+            //LogsListInfoBox.Add("Children : " + sender.FirstChild.Content);
+        
         }
+
+        public ICommand ReDisplayCommand
+        {
+            get
+            {
+                if (reDisplayCommand == null)
+                    reDisplayCommand = new RelayCommand(() => ReDisplay(), () => CanReDisplay());
+
+                return reDisplayCommand;
+            }
+        }
+
+        private void ReDisplay()
+        {
+            LogsList.Clear();
+            foreach (LineItem l in obs)
+            {
+                addLogToLogsList(l);
+                addInfoLogToInfoBox(l);
+            }
+        }
+
+        private bool CanReDisplay()
+        {
+            return true;
+        }
+
+        //public ICommand CheckLogLevelsCommand
+        //{
+        //    get
+        //    {
+        //        if (checkLogLevelsCommand == null)
+        //            checkLogLevelsCommand = new RelayCommand(() => CheckLogLevels(), () => CanCheckLogLevels());
+
+        //        return reDisplayCommand;
+        //    }
+        //}
+        //private void CheckLogLevels()
+        //{
+        //    LogLevelInfoIsChecked = true;
+        //}
+
+        //private bool CanCheckLogLevels()
+        //{
+        //    return true;
+        //}
+
+
+        //public ICommand CheckDisplayFilterCommand
+        //{
+        //    get
+        //    {
+        //        if (_checkDisplayFilterCommand == null)
+        //            _checkDisplayFilterCommand = new RelayCommand(() => AddPerson(), () => this.CanAddPerson());
+
+        //        return this.addCommand;
+        //    }
+        //}
+
+        //private bool CanExecuteSaveCommand()
+        //{
+        //    return true;
+        //}
+
+        //private void CreateCheckDisplayFilterCommand()
+        //{
+        //    // CheckDisplayFilterCommand = new RelayCommand()
+        //}
+
+        //public void CheckDisplayFilterExecute()
+        //{
+        //    LogLevelInfoIsChecked = true;
+        //}   
 
     }
 }

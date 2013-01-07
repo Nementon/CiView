@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModelView", "ModelView\Mode
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Silverlight_Sample", "..\..\..\..\Downloads\paginatedcollection\Source\PaginatedObervableCollection\Silverlight_Sample\Silverlight_Sample.csproj", "{E5A5416C-0B5D-42E8-990B-AA4F864B022B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestWPF", "TestWPF\TestWPF.csproj", "{9340CB24-BAD6-4019-8027-5DF66B51AF45}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,10 +31,6 @@ Global
 		{E5A5416C-0B5D-42E8-990B-AA4F864B022B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E5A5416C-0B5D-42E8-990B-AA4F864B022B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E5A5416C-0B5D-42E8-990B-AA4F864B022B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9340CB24-BAD6-4019-8027-5DF66B51AF45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9340CB24-BAD6-4019-8027-5DF66B51AF45}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9340CB24-BAD6-4019-8027-5DF66B51AF45}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9340CB24-BAD6-4019-8027-5DF66B51AF45}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
