@@ -215,13 +215,15 @@ namespace ActivityLogger.SewerModel
     
         internal void Collapse(bool isRaiser)
         {
+            LineItem nextItem = Next;
             if (FirstChild != null)
             {
                 FirstChild.Collapse(false);
             }
-            while (Next != null && !isRaiser)
+            while (nextItem != null && !isRaiser)
             {
                 Next.Collapse(false);
+                nextItem = nextItem.Next;
             }
             DecrementParentsNodeHeight(ItemHeight);
             NodeHeight = 0;
@@ -233,13 +235,15 @@ namespace ActivityLogger.SewerModel
      
         internal void UnCollapse(bool isRaiser)
         {
+            LineItem nextItem = Next;
             if (FirstChild != null)
             {
                 FirstChild.UnCollapse(false);
             }
-            while (Next != null && !isRaiser)
+            while (nextItem != null && !isRaiser)
             {
                 Next.UnCollapse(false);
+                nextItem = nextItem.Next;
             }
             IncrementParentsNodeHeight(ItemHeight);
             NodeHeight += ItemHeight;
