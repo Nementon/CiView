@@ -133,7 +133,16 @@ namespace ActivityLogger.SewerModel
        
         public override string ToString()
         {
-            return Content;
+            if (!IsCollapsed)
+            {
+                String log = new String('\t', Depth);
+                return String.Format("{0} {1}", log, Content);
+            }
+            else
+            {
+                return null;
+            }
+            
         }
 
         #region Private/Internal Helpers
