@@ -8,7 +8,7 @@ using System.Diagnostics.Contracts;
 
 namespace ActivityLogger.SewerModel
 {
-    public class LineItem
+    public class LineItem : INotifyPropertyChanged
     {
         #region Fields
         private double _nodeHeight;
@@ -238,6 +238,7 @@ namespace ActivityLogger.SewerModel
             NodeHeight = 0;
             _isCollapsed = true;
 
+            OnPropertyChanged("IsCollapsed");
             if (isRaiser)
                 Host.OnCollasped(this, EventArgs.Empty);
         }
@@ -258,6 +259,7 @@ namespace ActivityLogger.SewerModel
             NodeHeight += ItemHeight;
             _isCollapsed = false;
 
+            OnPropertyChanged("IsCollapsed");
             if (isRaiser)
                 Host.OnUnCollasped(this, EventArgs.Empty);
         }
@@ -277,6 +279,33 @@ namespace ActivityLogger.SewerModel
             {
                 Parent.NodeHeight -= height;
                 Parent.DecrementParentsNodeHeight(height);
+            }
+        }
+
+        #endregion
+
+        #region InotifyPropertyChanged
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        [Conditional("DEBUG")]
+        [DebuggerStepThrough]
+        public void VerifyPropertyName(string propertyName)
+        {
+
+            if (TypeDescriptor.GetProperties(this)[propertyName] == null)
+            {
+                Debug.Fail("Invalid property name: " + propertyName);
+            }
+        }
+
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            this.VerifyPropertyName(propertyName);
+
+            if (this.PropertyChanged != null)
+            {
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
 

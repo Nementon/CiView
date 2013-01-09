@@ -30,10 +30,5 @@ namespace ModelView
             DataContext = new ActivityLoggerViewModel(_bag);
             
         }
-
-        private void ReDisplayButton_Click_1(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 }

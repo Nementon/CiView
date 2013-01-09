@@ -10,6 +10,7 @@ namespace ActivityLogger.SewerModel
         #region Properties
         public LineItem FirstChild { get; internal set; }
         public LineItem LastChild { get; internal set; }
+        public int ChildrenNumber { get; set; }
         public double Height 
         {
             get
@@ -39,6 +40,7 @@ namespace ActivityLogger.SewerModel
         {
             item.Parent = null;
             item.Depth = 0;
+            ChildrenNumber++;
             if (FirstChild == null)
             {
                FirstChild = item;

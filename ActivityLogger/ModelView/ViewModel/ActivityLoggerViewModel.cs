@@ -7,40 +7,54 @@ using ActivityLogger.Sink;
 using CK.Core;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using Caliburn.Micro;
+using System.ComponentModel;
+using System.Windows;
+using BinaryLogRecorder;
 
 namespace ModelView.ViewModel
 {
     public class ActivityLoggerViewModel : BaseViewModel
     {
+        #region Fields
+        private ObservableCollection<LineItem> _logs;
+        private PaginatedObservableCollection<LineItem> _obs;
+        private ObservableCollection<string> _logsListInfoBox;
+        private bool _logLevelInfoIsChecked = true;
+        private bool _logLevelTaceIsChecked = true;
+        private bool _logLevelWarnIsChecked = true;
+        private bool _logLevelErrorIsChecked = true;
+        private bool _logLevelFatalIsChecked = true;
+
+        #endregion
+
         #region Properties
-        public ObservableCollection<string> _logsList;
-        public ObservableCollection<string> LogsList { get { return _logsList; } }
-        public PaginatedObservableCollection<LineItem> obs = new PaginatedObservableCollection<LineItem>(10);
-        public ObservableCollection<string> _logsListInfoBox;
+        
+        public ObservableCollection<LineItem> Logs { get { return _logs; } }
+        public PaginatedObservableCollection<LineItem> Obs { get { return _obs; } }
         public ObservableCollection<string> LogsListInfoBox { get { return _logsListInfoBox; } }
-        private bool _logLevelInfoIsChecked = false;
-        public bool _logLevelTaceIsChecked = true;
-        public bool _logLevelWarnIsChecked = false;
-        public bool _logLevelErrorIsChecked = true;
-        public bool _logLevelFatalIsChecked = false;
-        public bool LogLevelInfoIsChecked { get { return _logLevelInfoIsChecked; } set { _logLevelInfoIsChecked = value; } }
-        public bool LogLevelTaceIsChecked { get { return _logLevelTaceIsChecked; } set { _logLevelTaceIsChecked = value; } }
-        public bool LogLevelWarnIsChecked { get { return _logLevelWarnIsChecked; } set { _logLevelWarnIsChecked = value; } }
-        public bool LogLevelErrorIsChecked { get { return _logLevelErrorIsChecked; } set { _logLevelErrorIsChecked = value; } }
-        public bool LogLevelFatalIsChecked { get { return _logLevelFatalIsChecked; } set { _logLevelFatalIsChecked = value; } }
-        private ICommand reDisplayCommand;
+        public bool LogLevelInfoIsChecked { get { return _logLevelInfoIsChecked; } set { _logLevelInfoIsChecked = value; ReDisplay(); } }
+        public bool LogLevelTaceIsChecked { get { return _logLevelTaceIsChecked; } set { _logLevelTaceIsChecked = value; ReDisplay(); } }
+        public bool LogLevelWarnIsChecked { get { return _logLevelWarnIsChecked; } set { _logLevelWarnIsChecked = value; ReDisplay(); } }
+        public bool LogLevelErrorIsChecked { get { return _logLevelErrorIsChecked; } set { _logLevelErrorIsChecked = value; ReDisplay(); } }
+        public bool LogLevelFatalIsChecked { get { return _logLevelFatalIsChecked; } set { _logLevelFatalIsChecked = value; ReDisplay(); } }
+        public LineItem SelectedLog { get; set; }
+        private ICommand toggleCollapseCommand;
+        private ICommand displayInfoCommand;
         //private ICommand checkLogLevelsCommand;
+
         #endregion
 
        
 
         public ActivityLoggerViewModel(BagItems bag)
         {
-            _logsList = new ObservableCollection<string>();
+            _logs = new ObservableCollection<LineItem>();
+            _obs = new PaginatedObservableCollection<LineItem>(10);
             _logsListInfoBox = new ObservableCollection<string>();
             IDefaultActivityLogger logger = DefaultActivityLogger.Create();
 
-            ActivityLoggerLineItemSink log = new ActivityLoggerLineItemSink(bag);
+            ActivityLoggerLineItemSink log = new ActivityLoggerLineItemSink(bag);            
 
 
             bag.ChildInserted += addLogToObs;
@@ -66,28 +80,28 @@ namespace ModelView.ViewModel
 
         private void addLogToObs(LineItem sender, EventArgs e)
         {
-
-            obs.Add(sender);
-            addLogToLogsList(sender);
-            addInfoLogToInfoBox(sender);
-        }
-
-        private void addLogToLogsList(LineItem sender)
-        {
             checkCollapseFilter(sender);
-            if (sender.IsCollapsed)
-            {
-
-                if ((sender.Previous != null) && !sender.Previous.IsCollapsed)
-                {
-                    LogsList.Add("[...]");
-                }
-            }
-            else
-            {
-                LogsList.Add(formatLog(sender));
-            }
+            Obs.Add(sender);
+           // addLogToLogsList(sender);
+           //addInfoLogToInfoBox(sender);
         }
+
+        //private void addLogToLogsList(LineItem sender)
+        //{
+        //    checkCollapseFilter(sender);
+        //    //if (sender.IsCollapsed)
+        //    //{
+
+        //    //    if ((sender.Previous != null) && !sender.Previous.IsCollapsed)
+        //    //    {
+        //    //        Logs.Add("[...]");
+        //    //    }
+        //    //}
+        //    //else
+        //    //{
+        //    //    Logs.Add(formatLog(sender));
+        //    //}
+        //}
 
         private void checkCollapseFilter(LineItem sender)
         {
@@ -105,26 +119,22 @@ namespace ModelView.ViewModel
             }
         }
 
-        private string formatLog(LineItem sender)
-        {
-            String log = "";
-            int depth = sender.Depth; 
+        //private string formatLog(LineItem sender)
+        //{
+        //    String log = "";
+        //    int depth = sender.Depth; 
 
-            while (depth != 0)
-            {
-                log = log + "   ";
-                depth--;
-            }
-            if (sender.IsCollapsed)
-            {
-                log = log + "+ ";
-            }
-            log = log + sender.Content;
+        //    while (depth != 0)
+        //    {
+        //        log = log + "   ";
+        //        depth--;
+        //    }
+        //   log = log + sender.Content;
 
-            return log;
-        }
+        //    return log;
+        //}
 
-        public void changeCollapse(LineItem sender)
+        public void ToggleCollapse(LineItem sender)
         {
             if (sender.IsCollapsed)
             {
@@ -134,25 +144,26 @@ namespace ModelView.ViewModel
             {
                 sender.IsCollapsed = true;
             }
+            ReDisplay();
         }
 
         public void collapseAllLogs()
         {
-            LogsList.Clear();
-            foreach (LineItem i in obs)
+            Logs.Clear();
+            foreach (LineItem i in Obs)
             {
                 i.IsCollapsed = true;
-                addLogToLogsList(i);
+                //addLogToLogsList(i);
             }
         }
 
         public void uncollapseAllLogs()
         {
-            LogsList.Clear();
-            foreach (LineItem i in obs)
+            Logs.Clear();
+            foreach (LineItem i in Obs)
             {
                 i.IsCollapsed = false;
-                addLogToLogsList(i);
+                //addLogToLogsList(i);
             }
         }
         
@@ -170,34 +181,62 @@ namespace ModelView.ViewModel
             {
                 LogsListInfoBox.Add("Parent : null");
             }
-            //LogsListInfoBox.Add("Children : " + sender.FirstChild.Content);
+            if (sender.FirstChild != null)
+            {
+                LogsListInfoBox.Add("Children : " + sender.FirstChild.Content);
+            }
+            else
+            {
+                LogsListInfoBox.Add("Children : null");
+            }
+            if (sender.Next != null)
+            {
+                LogsListInfoBox.Add("Next : " + sender.Next.Content);
+            }
+            else
+            {
+                LogsListInfoBox.Add("Next : null");
+            }
         
         }
 
-        public ICommand ReDisplayCommand
+        public ICommand ToggleCollapseCommand
         {
             get
             {
-                if (reDisplayCommand == null)
-                    reDisplayCommand = new RelayCommand(() => ReDisplay(), () => CanReDisplay());
+            
+                if (toggleCollapseCommand == null)
+                    toggleCollapseCommand = new RelayCommand(() => ToggleCollapse(SelectedLog), () => true);
 
-                return reDisplayCommand;
+                return toggleCollapseCommand;
             }
         }
 
+        public ICommand DisplayInfoCommand
+        {
+            get
+            {
+                if (displayInfoCommand == null)
+                    displayInfoCommand = new RelayCommand(() => DisplayInfo(SelectedLog), () => true);
+
+                return displayInfoCommand;
+            }
+        }
+
+        public void DisplayInfo(LineItem sender)
+        {
+            LogsListInfoBox.Clear();
+            addInfoLogToInfoBox(sender);
+        }
+        
         private void ReDisplay()
         {
-            LogsList.Clear();
-            foreach (LineItem l in obs)
+            foreach (LineItem l in Obs)
             {
-                addLogToLogsList(l);
-                addInfoLogToInfoBox(l);
+                checkCollapseFilter(l);
             }
-        }
-
-        private bool CanReDisplay()
-        {
-            return true;
+            Obs.ForceRaiseChanged();
+           
         }
 
         //public ICommand CheckLogLevelsCommand
@@ -246,6 +285,8 @@ namespace ModelView.ViewModel
         //{
         //    LogLevelInfoIsChecked = true;
         //}   
+
+        
 
     }
 }
