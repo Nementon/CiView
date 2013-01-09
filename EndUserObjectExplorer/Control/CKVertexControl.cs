@@ -15,8 +15,10 @@ namespace EndUserObjectExplorer.Control
         public CKVertexControl()
         {
             RegisterBehaviors();
+            IsSelected = false;
         }
 
+        public bool IsSelected { get; set; }
         public new IVertex Vertex
         {
             get
@@ -33,7 +35,6 @@ namespace EndUserObjectExplorer.Control
         {
             System.Windows.Interactivity.BehaviorCollection behaviors = System.Windows.Interactivity.Interaction.GetBehaviors(this);
             behaviors.Add(new CKVertexDragBehavior());
-            behaviors.Add(new CKVertexSubGraphDragBehavior());
         }
     }
 }

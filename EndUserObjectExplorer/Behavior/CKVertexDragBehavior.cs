@@ -14,7 +14,6 @@ namespace EndObjectExplorer.Behavior
     {
         private Point _mouseLastPositionOnCanvas;
         private GraphCanvas _graphCanvas;
-        private bool _isCtrlDown = false;
 
         protected override void OnAttached()
         {
@@ -23,26 +22,29 @@ namespace EndObjectExplorer.Behavior
                 _graphCanvas = AssociatedObject.RootCanvas;
                 _mouseLastPositionOnCanvas = e.GetPosition(_graphCanvas);
                 AssociatedObject.CaptureMouse();
+                e.Handled = true;
             };
 
             AssociatedObject.MouseLeftButtonUp += (sender, e) =>
             {
                 AssociatedObject.ReleaseMouseCapture();
+                e.Handled = true;
             };
 
             AssociatedObject.MouseMove += (sender, e) =>
             {
-                if (AssociatedObject.IsMouseCaptured && _isCtrlDown)
+                Point mouseCurrentPositionOnCanvas = e.GetPosition(_graphCanvas);
+                if (AssociatedObject.IsMouseCaptured)
                 {
-                    Point mouseCurrentPositionOnCanvas = e.GetPosition(_graphCanvas);
                     if (_mouseLastPositionOnCanvas != mouseCurrentPositionOnCanvas)
                     {
                         Vector diff = _mouseLastPositionOnCanvas - mouseCurrentPositionOnCanvas;
-                        
+
                         GraphCanvas.SetX(AssociatedObject, GraphCanvas.GetX(AssociatedObject) - diff.X);
                         GraphCanvas.SetY(AssociatedObject, GraphCanvas.GetY(AssociatedObject) - diff.Y);
-                        
+
                         _mouseLastPositionOnCanvas = mouseCurrentPositionOnCanvas;
+                        e.Handled = true;
                     }
                 }
             };
