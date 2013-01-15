@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using CK.Plugin;
 using CK.Plugin.Discoverer;
 using CK.Plugin.Hosting;
-using EndUserObjectExplorer.Model;
+using EndObjectExplorer.Model;
 using QuickGraph;
 
 namespace EndObjectExplorer.Model

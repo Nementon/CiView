@@ -5,7 +5,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Interactivity;
 using EndObjectExplorer.Model;
-using EndUserObjectExplorer.Control;
+using EndObjectExplorer.Control;
 using GraphSharp.Controls;
 
 namespace EndObjectExplorer.Behavior
@@ -28,6 +28,7 @@ namespace EndObjectExplorer.Behavior
             AssociatedObject.MouseLeftButtonUp += (sender, e) =>
             {
                 AssociatedObject.ReleaseMouseCapture();
+                e.Handled = true;
             };
 
             AssociatedObject.MouseMove += (sender, e) =>

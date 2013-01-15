@@ -6,18 +6,22 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:behavior="clr-namespace:GraphSharp.Controls;assembly=GraphSharp.Controls"
         xmlns:graph="clr-namespace:EndObjectExplorer.ViewModel"
-        xmlns:control="clr-namespace:EndUserObjectExplorer.Control"
+        xmlns:control="clr-namespace:EndObjectExplorer.Control"
         xmlns:model="clr-namespace:EndObjectExplorer.Model"
         xmlns:zoom="clr-namespace:WPFExtensions.Controls;assembly=WPFExtensions"
+        xmlns:Converters="clr-namespace:GraphSharp.Converters;assembly=GraphSharp.Controls"
         xmlns:extbehaviour="clr-namespace:WPFExtensions.AttachedBehaviours;assembly=WPFExtensions"
         xmlns:be="clr-namespace:EndObjectExplorer.Behavior"
-        xmlns:templateSelector="clr-namespace:EndUserObjectExplorer.TemplateSelector"
+        xmlns:templateSelector="clr-namespace:EndObjectExplorer.TemplateSelector"
         mc:Ignorable="d" 
         x:Class="EndObjectExplorer.MainWindow"
         Title="MainWindow" Height="800" Width="1200"
         x:Name="root">
     <Window.Resources>
-        
+
+
+        <Converters:EdgeRouteToPathConverter x:Key="routeToPathConverter" />
+
         <!-- DataTemplate for CKServiceVertex-->
         <DataTemplate x:Key="CKServiceTemplate" DataType="{x:Type model:ServiceVertex}">
             <Border
@@ -66,8 +70,95 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+        <!-- DataTemplate for CKServiceImplementationEdge -->
+        <DataTemplate x:Key="CKImplementationTemplate" DataType="{x:Type model:ServiceImplementationEdge}">
+            <Path Stroke="Red" StrokeThickness="2" MinWidth="2" MinHeight="1" x:Name="edgePath">
+                <Path.Data>
+                    <PathGeometry>
+                        <PathGeometry.Figures>
+                            <MultiBinding Converter="{StaticResource routeToPathConverter}">
+                                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Source.(behavior:GraphCanvas.X)" />
+                                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Source.(behavior:GraphCanvas.Y)" />
+                                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Source.ActualWidth" />
+                                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Source.ActualHeight" />
+                                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Target.(behavior:GraphCanvas.X)" />
+                                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Target.(behavior:GraphCanvas.Y)" />
+                                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Target.ActualWidth" />
+                                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Target.ActualHeight" />
+                                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="RoutePoints" />
+                            </MultiBinding>
+                        </PathGeometry.Figures>
+                    </PathGeometry>
+                </Path.Data>
+            </Path>
+        </DataTemplate>
+
+        <!-- DataTemplate for CKServiceGeneralisationEdge -->
+        <DataTemplate x:Key="CKServiceGeneralisationTemplate" DataType="{x:Type model:ServiceGeneralisationEdge}">
+            <Path Stroke="Red" StrokeThickness="2" MinWidth="2" MinHeight="1" x:Name="edgePath">
+                <Path.Data>
+                    <PathGeometry>
+                        <PathGeometry.Figures>
+                            <MultiBinding Converter="{StaticResource routeToPathConverter}">
+                                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Source.(behavior:GraphCanvas.X)" />
+                                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Source.(behavior:GraphCanvas.Y)" />
+                                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Source.ActualWidth" />
+                                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Source.ActualHeight" />
+                                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Target.(behavior:GraphCanvas.X)" />
+                                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Target.(behavior:GraphCanvas.Y)" />
+                                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Target.ActualWidth" />
+                                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Target.ActualHeight" />
+                                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="RoutePoints" />
+                            </MultiBinding>
+                        </PathGeometry.Figures>
+                    </PathGeometry>
+                </Path.Data>
+            </Path>
+        </DataTemplate>
         
-        
+        <!-- DataTemplate for CKServiceReferenceEdge -->
+        <DataTemplate x:Key="CKServiceReferenceTemplate" DataType="{x:Type model:ServiceReferenceEdge}">
+            <Path Stroke="Blue" StrokeThickness="2" MinWidth="2" MinHeight="1" x:Name="edgePath">
+                <Path.Data>
+                    <PathGeometry>
+                        <PathGeometry.Figures>
+                            <MultiBinding Converter="{StaticResource routeToPathConverter}">
+                                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Source.(behavior:GraphCanvas.X)" />
+                                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Source.(behavior:GraphCanvas.Y)" />
+                                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Source.ActualWidth" />
+                                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Source.ActualHeight" />
+                                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Target.(behavior:GraphCanvas.X)" />
+                                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Target.(behavior:GraphCanvas.Y)" />
+                                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Target.ActualWidth" />
+                                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="Target.ActualHeight" />
+                                <Binding RelativeSource="{RelativeSource TemplatedParent}" Path="RoutePoints" />
+                            </MultiBinding>
+                        </PathGeometry.Figures>
+                    </PathGeometry>
+                </Path.Data>
+            </Path>
+        </DataTemplate>
+
+        <templateSelector:CKEdgeDataTeamplateSelector
+            ImplementationTemplate="{StaticResource CKImplementationTemplate}"
+            GeneralisationTemplate="{StaticResource CKServiceGeneralisationTemplate}"
+            ReferenceTemplate="{StaticResource CKServiceReferenceTemplate}"
+            x:Key="ckEdgeDataTemplateSelector"
+            />
+
+        <Style TargetType="{x:Type behavior:EdgeControl}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type behavior:EdgeControl}" >
+                        <ContentPresenter Content="{TemplateBinding Edge}"
+                            ContentTemplateSelector="{StaticResource ckEdgeDataTemplateSelector}">
+                        </ContentPresenter>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
         <!-- CKGraph Template Oldies -->
         <DataTemplate x:Key="CKGraphTemplate">
             <Grid>
@@ -80,23 +171,177 @@
                 </i:Interaction.Behaviors>
             </Grid>
         </DataTemplate>
-      
+        
+        
+        <Storyboard x:Key="ExpandMenuPanel">
+            <BooleanAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.IsEnabled)" Storyboard.TargetName="ExpandMenuPanel">
+                <DiscreteBooleanKeyFrame KeyTime="0" Value="True"/>
+                <DiscreteBooleanKeyFrame KeyTime="0:0:0.1" Value="False"/>
+            </BooleanAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="ExpandMenuPanel">
+                <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}"/>
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.1" Value="{x:Static Visibility.Hidden}"/>
+            </ObjectAnimationUsingKeyFrames>
+            <BooleanAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.IsEnabled)" Storyboard.TargetName="MenuPanel">
+                <DiscreteBooleanKeyFrame KeyTime="0" Value="False"/>
+                <DiscreteBooleanKeyFrame KeyTime="0:0:0.1" Value="False"/>
+                <DiscreteBooleanKeyFrame KeyTime="0:0:0.5" Value="True"/>
+            </BooleanAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="MenuPanel">
+                <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Hidden}"/>
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.1" Value="{x:Static Visibility.Visible}"/>
+            </ObjectAnimationUsingKeyFrames>
+            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="MenuPanel">
+                <EasingThicknessKeyFrame KeyTime="0:0:0.1" Value="0,0,-90,0"/>
+                <EasingThicknessKeyFrame KeyTime="0:0:0.5" Value="0"/>
+            </ThicknessAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="CollapseMenuPanel">
+            <BooleanAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.IsEnabled)" Storyboard.TargetName="ExpandMenuPanel">
+                <DiscreteBooleanKeyFrame KeyTime="0" Value="False"/>
+                <DiscreteBooleanKeyFrame KeyTime="0:0:0.4" Value="False"/>
+                <DiscreteBooleanKeyFrame KeyTime="0:0:0.5" Value="True"/>
+            </BooleanAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="ExpandMenuPanel">
+                <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Hidden}"/>
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.4" Value="{x:Static Visibility.Hidden}"/>
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.5" Value="{x:Static Visibility.Visible}"/>
+            </ObjectAnimationUsingKeyFrames>
+            <BooleanAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.IsEnabled)" Storyboard.TargetName="MenuPanel">
+                <DiscreteBooleanKeyFrame KeyTime="0" Value="True"/>
+                <DiscreteBooleanKeyFrame KeyTime="0:0:0.1" Value="False"/>
+                <DiscreteBooleanKeyFrame KeyTime="0:0:0.4" Value="True"/>
+                <DiscreteBooleanKeyFrame KeyTime="0:0:0.5" Value="False"/>
+            </BooleanAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="MenuPanel">
+                <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}"/>
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.4" Value="{x:Static Visibility.Visible}"/>
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.5" Value="{x:Static Visibility.Hidden}"/>
+            </ObjectAnimationUsingKeyFrames>
+            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="MenuPanel">
+                <SplineThicknessKeyFrame KeyTime="0" Value="0"/>
+                <SplineThicknessKeyFrame KeyTime="0:0:0.4" Value="0,0,-90,0"/>
+                <SplineThicknessKeyFrame KeyTime="0:0:0.5" Value="0,0,-90,0"/>
+            </ThicknessAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="ExpandInfosPanel">
+            <BooleanAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.IsEnabled)" Storyboard.TargetName="InfosPanel">
+                <DiscreteBooleanKeyFrame KeyTime="0" Value="False"/>
+                <DiscreteBooleanKeyFrame KeyTime="0:0:0.1" Value="False"/>
+                <DiscreteBooleanKeyFrame KeyTime="0:0:0.5" Value="True"/>
+            </BooleanAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="InfosPanel">
+                <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Hidden}"/>
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.1" Value="{x:Static Visibility.Visible}"/>
+            </ObjectAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="ExpandInfosPanel">
+                <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}"/>
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.1" Value="{x:Static Visibility.Hidden}"/>
+            </ObjectAnimationUsingKeyFrames>
+            <BooleanAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.IsEnabled)" Storyboard.TargetName="ExpandInfosPanel">
+                <DiscreteBooleanKeyFrame KeyTime="0" Value="True"/>
+                <DiscreteBooleanKeyFrame KeyTime="0:0:0.1" Value="False"/>
+            </BooleanAnimationUsingKeyFrames>
+            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="InfosPanel">
+                <EasingThicknessKeyFrame KeyTime="0:0:0.1" Value="0,0,0,-140"/>
+                <EasingThicknessKeyFrame KeyTime="0:0:0.5" Value="0"/>
+            </ThicknessAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="CollapseInfosPanel">
+            <BooleanAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.IsEnabled)" Storyboard.TargetName="InfosPanel">
+                <DiscreteBooleanKeyFrame KeyTime="0" Value="True"/>
+                <DiscreteBooleanKeyFrame KeyTime="0:0:0.1" Value="False"/>
+                <DiscreteBooleanKeyFrame KeyTime="0:0:0.4" Value="False"/>
+                <DiscreteBooleanKeyFrame KeyTime="0:0:0.5" Value="False"/>
+            </BooleanAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="InfosPanel">
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.4" Value="{x:Static Visibility.Hidden}"/>
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.5" Value="{x:Static Visibility.Hidden}"/>
+            </ObjectAnimationUsingKeyFrames>
+            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="ExpandInfosPanel">
+                <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Hidden}"/>
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.4" Value="{x:Static Visibility.Visible}"/>
+                <DiscreteObjectKeyFrame KeyTime="0:0:0.5" Value="{x:Static Visibility.Visible}"/>
+            </ObjectAnimationUsingKeyFrames>
+            <BooleanAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.IsEnabled)" Storyboard.TargetName="ExpandInfosPanel">
+                <DiscreteBooleanKeyFrame KeyTime="0" Value="False"/>
+                <DiscreteBooleanKeyFrame KeyTime="0:0:0.4" Value="False"/>
+                <DiscreteBooleanKeyFrame KeyTime="0:0:0.5" Value="True"/>
+            </BooleanAnimationUsingKeyFrames>
+            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="InfosPanel">
+                <SplineThicknessKeyFrame KeyTime="0" Value="0"/>
+                <SplineThicknessKeyFrame KeyTime="0:0:0.4" Value="0,0,0,-140"/>
+                <SplineThicknessKeyFrame KeyTime="0:0:0.5" Value="0,0,0,-140"/>
+            </ThicknessAnimationUsingKeyFrames>
+        </Storyboard>
+        
     </Window.Resources>
     
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="ExpandMenuPanel">
+            <BeginStoryboard Storyboard="{StaticResource ExpandMenuPanel}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="Mouse.MouseLeave" SourceName="MenuPanel">
+            <BeginStoryboard x:Name="CollapseMenuPanel_BeginStoryboard" Storyboard="{StaticResource CollapseMenuPanel}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="ExpandInfosPanel">
+            <BeginStoryboard x:Name="ExpandInfosPanel_BeginStoryboard" Storyboard="{StaticResource ExpandInfosPanel}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="UIElement.MouseLeftButtonDown" SourceName="InfosPanel">
+            <BeginStoryboard x:Name="CollapseInfosPanel_BeginStoryboard" Storyboard="{StaticResource CollapseInfosPanel}"/>
+        </EventTrigger>
+    </Window.Triggers>
+
+
     <Grid>
-        <StackPanel >
-            <ComboBox ItemsSource="{Binding LayoutAlgs}"
-                          SelectedItem="{Binding Path=SelectedLayoutAlg, Mode=TwoWay}"
-                        Margin="5" />
-            <Button Content="Toggle Hide/Show OptionalTryStart Edges" Click="Button_Click_1" />
+        <StackPanel>
+                
+            </StackPanel>
+            <zoom:ZoomControl Margin="0,0,0,0">
+                <control:CKGraphLayout Graph="{Binding Path=Graph}"
+                                        LayoutAlgorithmType="{Binding Path=SelectedLayoutAlg, Mode=OneWay}"
+                                        OverlapRemovalAlgorithmType="FSA"
+                                       />
+            </zoom:ZoomControl>
+        
+
+        <Button x:Name="ExpandMenuPanel" HorizontalAlignment="Right" Margin="0" Width="10"/>
+        <StackPanel x:Name="MenuPanel" HorizontalAlignment="Right" Width="100" Margin="0,0,-90,0" Background="#FF0B0787" d:IsHidden="True" Visibility="Hidden" IsEnabled="False">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                
+                <StackPanel Grid.Row="0">
+                    <Button Content="Architecture" Margin="10,10,10,5" Click="Button_Click_1"/>
+                    <Button Content="Connection" Margin="10,5,10,5" Click="Button_Click_2"/>
+                </StackPanel>
+                
+                <StackPanel x:Name="ArchitecturePanel" Grid.Row="1" IsEnabled="False" Visibility="Hidden">
+                    <ComboBox ItemsSource="{Binding LayoutAlgs}"
+                              SelectedItem="{Binding Path=SelectedLayoutAlg, Mode=TwoWay}"
+                            Margin="5" />
+                </StackPanel>
+                
+                <StackPanel x:Name="ConnectionPanel" Grid.Row="1" IsEnabled="False" Visibility="Hidden">
+                    <TextBlock>Select wich connection you'd like to see :</TextBlock>
+                    <CheckBox >Must Exist</CheckBox>
+                    <CheckBox >Must Exist Try Start</CheckBox>
+                    <CheckBox >Must Exist and Run</CheckBox>
+                    <CheckBox >Optional</CheckBox>
+                    <CheckBox >Optional Try Start</CheckBox>
+                    
+                </StackPanel>
+                
+            </Grid>
         </StackPanel>
-        <zoom:ZoomControl Margin="0,80,0,0">
-            <control:CKGraphLayout Graph="{Binding Path=Graph}"
-                                    LayoutAlgorithmType="{Binding Path=SelectedLayoutAlg, Mode=OneWay}"
-                                    OverlapRemovalAlgorithmType="FSA"
-                                   />
-        </zoom:ZoomControl>
+        <StackPanel x:Name="InfosPanel" Height="150" VerticalAlignment="Bottom" Margin="0,0,0,-140" Background="#FF0B0368"/>
+        <Button x:Name="ExpandInfosPanel" VerticalAlignment="Bottom" Margin="0" Height="10"/>
+
+
     </Grid>
+   
 
     <!-- With use of CKGraphCollection 
     <Grid>

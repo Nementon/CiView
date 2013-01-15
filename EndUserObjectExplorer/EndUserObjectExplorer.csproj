@@ -7,7 +7,7 @@
     <ProjectGuid>{512935F8-C748-4D1F-9C41-8FB2D8DC8CFC}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>EndUserObjectExplorer</RootNamespace>
+    <RootNamespace>EndObjectExplorer</RootNamespace>
     <AssemblyName>EndUserObjectExplorer</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -129,6 +129,7 @@
     <Compile Include="Model\ServiceGeneralisationEdge.cs" />
     <Compile Include="Model\ServiceImplementationEdge.cs" />
     <Compile Include="Model\ServiceReferenceEdge.cs" />
+    <Compile Include="TemplateSelector\CKEdgeDataTeamplateSelector.cs" />
     <Compile Include="TemplateSelector\CKVertexDataTemplateSelector.cs" />
     <Compile Include="Model\IVertex.cs" />
     <Compile Include="Model\PluginVertex.cs" />

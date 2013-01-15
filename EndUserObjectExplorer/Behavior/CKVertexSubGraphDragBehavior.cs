@@ -4,7 +4,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Interactivity;
 using EndObjectExplorer.Model;
-using EndUserObjectExplorer.Control;
+using EndObjectExplorer.Control;
 using GraphSharp.Controls;
 
 namespace EndObjectExplorer.Behavior

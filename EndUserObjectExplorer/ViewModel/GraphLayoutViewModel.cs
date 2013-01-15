@@ -51,7 +51,7 @@ namespace EndObjectExplorer.ViewModel
             layoutAlgs.Add("CompoundFDP");
 
             LayoutAlgs = layoutAlgs;
-            SelectedLayoutAlg = "Tree";
+            SelectedLayoutAlg = "FR";
         }
         #endregion
     }

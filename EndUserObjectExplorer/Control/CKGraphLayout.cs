@@ -6,14 +6,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using EndObjectExplorer.Model;
-using EndUserObjectExplorer.Behavior;
+using EndObjectExplorer.Behavior;
 using GraphSharp;
 using GraphSharp.Algorithms.Layout;
 using GraphSharp.Algorithms.Layout.Simple.Tree;
 using GraphSharp.Controls;
 using QuickGraph;
 
-namespace EndUserObjectExplorer.Control
+namespace EndObjectExplorer.Control
 {
     public class CKGraphLayout : GraphLayout<IVertex, Edge<IVertex>, CKGraph>
     {

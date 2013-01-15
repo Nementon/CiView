@@ -8,7 +8,7 @@ using EndObjectExplorer.Behavior;
 using EndObjectExplorer.Model;
 using GraphSharp.Controls;
 
-namespace EndUserObjectExplorer.Control
+namespace EndObjectExplorer.Control
 {
     public class CKVertexControl : VertexControl
     {
@@ -33,7 +33,6 @@ namespace EndUserObjectExplorer.Control
         {
             System.Windows.Interactivity.BehaviorCollection behaviors = System.Windows.Interactivity.Interaction.GetBehaviors(this);
             behaviors.Add(new CKVertexDragBehavior());
-            behaviors.Add(new CKVertexSubGraphDragBehavior());
         }
     }
 }

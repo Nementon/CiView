@@ -1,7 +1,9 @@
 ﻿using System.Windows;
 using EndObjectExplorer.Model;
 using EndObjectExplorer.ViewModel;
+using EndObjectExplorer.Control;
 using CK.Plugin;
+
 
 namespace EndObjectExplorer
 {
@@ -17,23 +19,44 @@ namespace EndObjectExplorer
         {
             InitializeComponent();
 
-            CKGraph graph = new CKGraph("N:|Clouds|SkyDrive|Dev|C#|Civikey|Certified|Output|Debug");
+            CKGraph graph = new CKGraph("C:|Users|jerome|Documents|CiviKey|ck-certified|Output|Debug");
             _dataContext = new GraphLayoutViewModel(graph);
             DataContext = _dataContext;
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            if (_isVisible)
+            if (ConnectionPanel.IsEnabled == true)
             {
-                _dataContext.Graph.DetachEdgesByRunningRequirement(RunningRequirement.OptionalTryStart);
-                _isVisible = false;
+                ConnectionPanel.IsEnabled = false;
+                ConnectionPanel.Visibility = Visibility.Hidden;
+                ArchitecturePanel.IsEnabled = true;
+                ArchitecturePanel.Visibility = Visibility.Visible;
             }
-            else
+            else if (ArchitecturePanel.IsEnabled == false)
             {
-                _dataContext.Graph.AttachEdgesByRunningRequirement(RunningRequirement.OptionalTryStart);
-                _isVisible = true;
+                ArchitecturePanel.IsEnabled = true;
+                ArchitecturePanel.Visibility = Visibility.Visible;
+            }
+
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            if (ArchitecturePanel.IsEnabled == true)
+            {
+                ArchitecturePanel.IsEnabled = false;
+                ArchitecturePanel.Visibility = Visibility.Hidden;
+                ConnectionPanel.IsEnabled = true;
+                ConnectionPanel.Visibility = Visibility.Visible;
+            }
+            else if (ConnectionPanel.IsEnabled == false)
+            {
+                ConnectionPanel.IsEnabled = true;
+                ConnectionPanel.Visibility = Visibility.Visible;
             }
         }
+
+        
     }
 }

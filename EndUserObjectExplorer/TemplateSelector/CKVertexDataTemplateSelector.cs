@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using EndObjectExplorer.Model;
-using EndUserObjectExplorer.Control;
+using EndObjectExplorer.Control;
 
-namespace EndUserObjectExplorer.TemplateSelector
+namespace EndObjectExplorer.TemplateSelector
 {
     public class CKVertexDataTemplateSelector : DataTemplateSelector
     {

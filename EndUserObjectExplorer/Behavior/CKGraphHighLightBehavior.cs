@@ -5,10 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Interactivity;
-using EndUserObjectExplorer.Control;
+using EndObjectExplorer.Control;
 using GraphSharp.Controls;
 
-namespace EndUserObjectExplorer.Behavior
+namespace EndObjectExplorer.Behavior
 {
     public class CKGraphHighLightBehavior : Behavior<CKGraphLayout>
     {

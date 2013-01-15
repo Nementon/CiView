@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using EndObjectExplorer.Model;
 using QuickGraph;
 
-namespace EndUserObjectExplorer.Model
+namespace EndObjectExplorer.Model
 {
     public class ServiceImplementationEdge : Edge<IVertex>
     {
