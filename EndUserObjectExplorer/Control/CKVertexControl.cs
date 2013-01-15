@@ -15,8 +15,10 @@ namespace EndObjectExplorer.Control
         public CKVertexControl()
         {
             RegisterBehaviors();
+            IsSelected = false;
         }
 
+        public bool IsSelected { get; set; }
         public new IVertex Vertex
         {
             get
